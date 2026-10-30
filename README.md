@@ -31,7 +31,9 @@ Este projeto implementa todos os requisitos do documento "Projeto Freelancer E-c
 3. O script instala WordPress, WooCommerce, campos brasileiros de checkout, o tema filho e dois produtos variáveis de exemplo.
 4. Abra http://localhost:8088. O admin local está no `.env` (`WP_ADMIN_USER` / `WP_ADMIN_PASSWORD`). A porta 8080 deste computador já está ocupada.
 
-Isso ainda não é a loja do PDF. Faltam a planilha dos 300 produtos, Mercado Pago, frete, SEO e Instagram Shopping. O modelo da planilha está em [docs/modelo-planilha-produtos.csv](docs/modelo-planilha-produtos.csv).
+A vitrine local tem página inicial, dois produtos variáveis e filtros de tamanho, cor e preço. O plugin do Mercado Pago fica instalado e desativado até existirem as credenciais.
+
+Isso ainda não é a loja do PDF. Faltam a planilha dos 300 produtos, pagamento real, frete, SEO e Instagram Shopping. O modelo da planilha está em [docs/modelo-planilha-produtos.csv](docs/modelo-planilha-produtos.csv).
 
 ## Estrutura do Projeto
 - `/docs` - Documentação e plano detalhado

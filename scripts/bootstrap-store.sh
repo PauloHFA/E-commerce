@@ -37,6 +37,7 @@ wp language core install pt_BR --activate
 wp plugin install woocommerce --activate
 wp language plugin install woocommerce pt_BR || true
 wp plugin install woocommerce-extra-checkout-fields-for-brazil --activate
+wp plugin install woocommerce-mercadopago
 wp theme install storefront
 wp theme activate moda-feminina
 wp rewrite structure '/%postname%/' --hard
@@ -53,6 +54,9 @@ wp post update "$(wp option get woocommerce_checkout_page_id)" --post_name=final
 wp post update "$(wp option get woocommerce_myaccount_page_id)" --post_name=minha-conta --post_title="Minha conta"
 wp rewrite flush --hard
 wp eval-file /scripts/seed-catalog.php --user=1
+wp option update woocommerce_attribute_lookup_enabled yes
+wp wc tool run regenerate_product_attributes_lookup_table --user=1
+wp action-scheduler run --batches=20
 
 echo "Loja local pronta em ${SITE_URL:-http://localhost:8088}"
 echo "Admin: ${WP_ADMIN_USER:-admin}"

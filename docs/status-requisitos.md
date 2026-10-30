@@ -38,4 +38,11 @@ O PDF deixa explícito que fotos, textos, planilha dos 300 produtos, CNPJ, conta
 
 ## O que já sobe localmente
 
-`.\setup.ps1` instalou WordPress, WooCommerce, campos brasileiros de checkout, o tema filho e dois produtos variáveis. A loja responde em http://localhost:8088/shop/. Isso valida o fluxo. Não entrega catálogo de 300 produtos, Mercado Pago, frete, SEO nem Instagram Shopping.
+`.\setup.ps1` instala WordPress, WooCommerce, campos brasileiros, o tema filho e dois produtos variáveis. A loja local está em http://localhost:8088/loja/.
+
+Também já existe:
+- página inicial com produtos em destaque
+- filtros combináveis de tamanho, cor (amostra) e faixa de preço
+- plugin do Mercado Pago instalado e **desativado** (ativar só com as credenciais do cliente)
+
+Ainda não entrega catálogo de 300 produtos, pagamento real, frete, SEO nem Instagram Shopping.
