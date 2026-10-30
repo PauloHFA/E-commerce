@@ -1,40 +1,44 @@
-# Setup Automático - E-commerce de Moda Feminina (WooCommerce)
-# Execute este script após subir o docker-compose
+﻿# Sobe WordPress + WooCommerce e aplica o catalogo de exemplo.
+# Senha local fica no .env. Nao use estas credenciais em producao.
 
-Write-Host "🚀 Iniciando setup do E-commerce de Moda Feminina..." -ForegroundColor Green
+$ErrorActionPreference = "Stop"
+Set-Location $PSScriptRoot
 
-# Verificar se Docker está rodando
-if (-not (Get-Process -Name "docker" -ErrorAction SilentlyContinue)) {
-    Write-Host "❌ Docker não está rodando. Inicie o Docker Desktop primeiro." -ForegroundColor Red
+Write-Host "Iniciando a loja local de moda feminina..." -ForegroundColor Green
+
+if (-not (Test-Path ".env")) {
+    Copy-Item ".env.example" ".env"
+    Write-Host "Criei .env a partir do exemplo. Troque WP_ADMIN_PASSWORD antes de expor o site." -ForegroundColor Yellow
+}
+
+$dockerReady = $false
+for ($i = 0; $i -lt 24; $i++) {
+    docker info *> $null
+    if ($LASTEXITCODE -eq 0) {
+        $dockerReady = $true
+        break
+    }
+
+    if ($i -eq 0) {
+        $desktop = Join-Path $env:ProgramFiles "Docker\Docker\Docker Desktop.exe"
+        if (Test-Path $desktop) {
+            Start-Process -FilePath $desktop
+            Write-Host "Docker Desktop aberto. Aguardando o daemon (ate 2 minutos)..." -ForegroundColor Yellow
+        }
+    }
+
+    Start-Sleep -Seconds 5
+}
+
+if (-not $dockerReady) {
+    Write-Host "O Docker nao respondeu. Abra o Docker Desktop e execute .\setup.ps1 de novo." -ForegroundColor Red
     exit 1
 }
 
-Write-Host "✅ Docker detectado. Ambiente será iniciado..." -ForegroundColor Green
+docker compose up -d
+if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+}
 
-# Iniciar containers
-docker-compose up -d
-
-Write-Host "`n⏳ Aguardando serviços iniciarem (20s)..." -ForegroundColor Yellow
-Start-Sleep -Seconds 20
-
-Write-Host "`n🌐 Acesse o WordPress em: http://localhost:8080" -ForegroundColor Cyan
-Write-Host "Credenciais iniciais (após instalação):" -ForegroundColor Cyan
-Write-Host "   - Banco: MySQL (root/rootpassword)" -ForegroundColor White
-Write-Host "   - Usuário admin: será criado na instalação" -ForegroundColor White
-Write-Host "`nApós instalar o WordPress:" -ForegroundColor Magenta
-Write-Host "1. Instale e ative o plugin WooCommerce" 
-Write-Host "2. Execute o assistente de setup do WooCommerce"
-Write-Host "3. Escolha tema 'Storefront' ou 'Hello Elementor'"
-Write-Host "4. Crie categorias: Vestidos, Blusas, Calças, Saias, Acessórios, Calçados"
-Write-Host "5. Adicione produtos demo de moda feminina"
-
-Write-Host "`n✅ Setup concluído! O ambiente está pronto para desenvolvimento." -ForegroundColor Green
-Write-Host "`n📋 Próximos passos após acessar http://localhost:8080:" -ForegroundColor Cyan
-Write-Host "   1. Complete a instalação do WordPress" -ForegroundColor White
-Write-Host "   2. Ative o plugin WooCommerce e rode o assistente de setup" -ForegroundColor White
-Write-Host "   3. Instale o tema 'Storefront' ou 'Hello Elementor'" -ForegroundColor White
-Write-Host "   4. Copie a pasta 'frontend' para wp-content/themes/moda-feminina" -ForegroundColor White
-Write-Host "   5. Ative o tema 'Moda Feminina Custom'" -ForegroundColor White
-Write-Host "   6. Importe o arquivo products-demo.csv em Produtos → Importar" -ForegroundColor White
-Write-Host "`n🚀 Execute o comando novamente se precisar reiniciar os containers." -ForegroundColor Green
-Write-Host "Próximo comando recomendado: ./setup.ps1" -ForegroundColor White
+docker compose --profile tools run --rm --entrypoint sh wpcli /scripts/bootstrap-store.sh
+exit $LASTEXITCODE

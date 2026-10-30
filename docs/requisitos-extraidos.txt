@@ -1,0 +1,1367 @@
+Projeto Freelancer: E-commerce de Moda
+Feminina (WooCommerce) – Requisitos e
+Delimitação
+Documento de requisitos, escopo e boas práticas para o projeto "Desenvolvimento de E-
+commerce": loja virtual completa para uma marca de roupas femininas com loja física em
+São Paulo, com catálogo de mais de 300 produtos, filtros, carrinho, checkout com Mercado
+Pago (Pix, cartão e boleto), frete automático (Correios e transportadoras), cupons, painel
+administrativo, SEO e integração com Instagram Shopping.
+Como ler: cada requisito tem prioridade M (obrigatório), S (desejável) ou C
+(opcional) e uma marca de origem: [A] vem do anúncio, [I] foi inferido como
+necessário para a loja operar com segurança e legalidade, [C] depende de
+confirmação do cliente. Perguntas para a reunião de alinhamento estão na seção 19.
+1. Resumo do anúncio
+Item O que o anúncio diz
+Cliente Marca de roupas femininas com loja física em São
+Paulo que quer expandir para o digital (Juliana
+Moreira, nota 2,0 em 12 avaliações)
+Plataforma Preferência por WooCommerce ou Shopify;
+habilidades pedidas: WordPress, WooCommerce,
+PHP e gateway de pagamento
+Catálogo Mais de 300 produtos, por categoria, com filtros de
+tamanho, cor e preço
+Compra Carrinho, checkout conectado ao Mercado Pago
+(Pix, cartão e boleto) e cupons de desconto
+Entrega Cálculo automático de frete via Correios e
+transportadoras
+Gestão Painel administrativo intuitivo para pedidos,
+estoque e clientes
+Marketing Design elegante e responsivo, SEO otimizado e
+integração com Instagram Shopping
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 1 of 27
+
+2. Viabilidade e pontos de atenção (leia antes de propor)
+Dez dias corridos dão cerca de 70 a 80 horas úteis de uma pessoa. Isso comporta uma loja
+configurada sobre um tema pronto, mas não o conjunto completo do anúncio com testes e
+publicação.
+Pontos de atenção:
+Dependências fora do seu controle: contrato com os Correios, verificação da conta do
+Mercado Pago, análise da Meta para o Instagram Shopping e, principalmente, conteúdo
+(fotos, textos, medidas e planilha dos 300 produtos).
+Itens que o anúncio não menciona e que a loja exige: emissão de nota fiscal, políticas
+de troca e devolução, LGPD, e-mails transacionais, integração de estoque com a loja
+física e quem cadastra os produtos.
+Perfil do cliente: nota 2,0 em 12 avaliações e 127 propostas. Proteja-se com escopo
+fechado por escrito, pagamento por marcos e proteção de pagamento da plataforma,
+se existir.
+Três caminhos honestos:
+Caminho A – Escopo completo, faseado e com preço realista (seção 16).
+Caminho B – Marco 1 enxuto: loja vendendo (catálogo importado, checkout com
+Mercado Pago, frete, cupons e SEO básico) em prazo menor; Instagram Shopping e
+refinamentos no Marco 2.
+Item O que o anúncio diz
+Processo Reunião de alinhamento de 30 minutos no início
+Prazo e orçamento 10 dias; R$ 1.500 a R$ 3.000 (pode aumentar com
+tarefas extras)
+Concorrência 127 propostas
+Dimensão Anunciado Estimativa realista (seção 16)
+Prazo 10 dias Cerca de 5 a 6 semanas em dedicação
+integral para o escopo completo
+Esforço Cabe em R$ 1.500 a R$
+3.000
+Cerca de 210 horas
+Valor implícito por
+hora
+R$ 7 a R$ 14 Muito abaixo do praticado para
+desenvolvimento web
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 2 of 27
+
+Caminho C – Não enviar proposta, se o cliente não aceitar renegociar prazo e valor ou
+não fornecer o conteúdo.
+3. Delimitação do escopo
+Dentro do escopo Fora do escopo (salvo
+contratação à parte)
+Condicional (depende de
+confirmação)
+Instalação e configuração do
+WordPress e do
+WooCommerce em ambiente
+de homologação e produção
+Fotografia de produtos,
+edição de imagens e criação
+de identidade visual
+(logotipo, manual de marca)
+Cadastro dos 300 produtos
+pelo desenvolvedor, caso o
+cliente não entregue planilha
+padronizada
+Tema responsivo
+personalizado conforme a
+identidade visual fornecida
+Redação das descrições de
+300 produtos e dos textos
+institucionais
+Emissor de nota fiscal
+integrado ao WooCommerce
+Importação do catálogo (até
+300 produtos e suas
+variações) a partir de
+planilha padronizada
+Emissão de NF-e e
+obrigações fiscais (a loja
+precisa de um emissor; ver
+seção 13)
+Retirada na loja física como
+método de entrega
+Filtros por tamanho, cor e
+preço; busca; ordenação
+Sincronização de estoque
+com a loja física ou com
+ERP
+Programa de indicação,
+cashback ou fidelidade
+Carrinho, checkout com
+campos brasileiros e conta
+do cliente
+Integrações com
+marketplaces (Mercado
+Livre, Shopee etc.)
+Recuperação de carrinho
+abandonado
+Mercado Pago: Pix, cartão e
+boleto, com webhooks e
+testes
+Gestão de tráfego pago,
+anúncios e conteúdo de
+redes sociais
+Blog e conteúdo de moda
+Frete automático (Correios e
+transportadoras via
+agregador)
+Multi-idioma, multimoeda e
+vendas internacionais
+Lista de desejos e avaliações
+de produtos
+Cupons de desconto Aplicativo móvel,
+assinaturas e vendas por
+atacado
+Chat e atendimento por
+WhatsApp integrado
+Painel administrativo para
+pedidos, estoque e clientes,
+com perfis
+SEO contínuo (produção de
+conteúdo e link building)
+Pixel e API de conversões da
+Meta
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 3 of 27
+
+Qualquer item fora desta tabela entra pelo processo de mudança (seção 17).
+4. Premissas e dependências do cliente
+Dentro do escopo Fora do escopo (salvo
+contratação à parte)
+Condicional (depende de
+confirmação)
+SEO técnico, dados
+estruturados e analítica
+(GA4)
+Custos de hospedagem,
+domínio, licenças premium
+e taxas dos serviços
+Selos e avaliações de
+terceiros
+Instagram Shopping:
+catálogo sincronizado e
+configuração com o cliente
+Contratos do cliente
+(Correios, Mercado Pago,
+Meta) e o seu aceite
+Páginas legais com textos-
+base, LGPD e banner de
+cookies
+Revisão jurídica dos textos
+legais
+Segurança, backups, testes,
+documentação e
+treinamento
+Suporte e manutenção
+contínuos (ver contrato
+opcional)
+Item Responsável Quando Impacto se atrasar
+CNPJ ativo e dados da
+empresa (razão social,
+endereço, contatos)
+Cliente Antes do
+início
+Bloqueia contas de
+pagamento, Correios e
+páginas legais
+Conta do Mercado Pago
+verificada, com chave Pix
+cadastrada
+Cliente Semana 1 Bloqueia testes reais de
+pagamento
+Contrato com os
+Correios (necessário
+para a integração oficial)
+ou escolha de um
+agregador (Melhor Envio,
+Frenet)
+Cliente Semana 1 Frete fica provisório
+Domínio e hospedagem
+adequada, em nome do
+cliente
+Cliente (com a sua
+recomendação)
+Semana 1 Atrasa homologação e
+publicação
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 4 of 27
+
+Regra: atrasos por dependências do cliente estendem o prazo na mesma medida e ficam
+registrados no relatório semanal.
+5. Decisão de plataforma e arquitetura
+5.1 WooCommerce ou Shopify
+Item Responsável Quando Impacto se atrasar
+Planilha dos produtos no
+modelo da seção 8, com
+pesos e dimensões
+Cliente Até a
+semana 2
+Principal risco de prazo
+Fotos de qualidade, na
+resolução e proporção
+combinadas
+Cliente Até a
+semana 2
+Bloqueia catálogo e SEO
+Identidade visual, textos
+institucionais, tabela de
+medidas e política de
+trocas
+Cliente Semana 1 Bloqueia design e
+páginas legais
+Business Manager da
+Meta, página do
+Facebook e conta
+profissional do
+Instagram vinculadas
+Cliente Semana 3 Bloqueia o Instagram
+Shopping
+Decisão sobre emissão
+de nota fiscal (quem
+emite e com qual
+sistema)
+Cliente Semana 1 Risco legal e operacional
+Uma pessoa de
+referência com poder de
+decisão e prazos de
+aprovação (por exemplo,
+2 dias úteis)
+Cliente Desde o
+início
+Atrasos em cadeia
+Critério WooCommerce Shopify
+Habilidades pedidas
+no anúncio
+Coincidem (WordPress,
+WooCommerce, PHP)
+Não aparecem na lista
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 5 of 27
+
+Recomendação: WooCommerce, pelo alinhamento com o perfil pedido e pelo controle de
+custos, desde que o cliente aceite o plano de manutenção (atualizações, backups e
+monitoramento). Se a equipe da marca não tiver apoio técnico, vale apresentar o Shopify
+como alternativa com menor carga operacional. Registre a decisão por escrito.
+5.2 Fluxo geral
+  Cliente (celular ou desktop)
+        │ HTTPS
+        ▼
+  CDN e cache (estáticos e imagens)
+        │
+        ▼
+  WordPress + WooCommerce (tema filho + plugin do site)
+   ├ ─► Mercado Pago (Pix, cartão, boleto)  ◄── webhook de status do pagamento
+   ├ ─► Correios (contrato) e/ou agregador (Melhor Envio, Frenet) → frete e 
+etiquetas
+   ├ ─► Meta Commerce Manager (catálogo) → Instagram Shopping → leva o cliente 
+ao site
+   ├ ─► E-mail transacional (SMTP de provedor) → pedido, pagamento, envio
+   └─► Emissor de nota fiscal (a definir, fora do escopo base)
+Critério WooCommerce Shopify
+Custo recorrente Hospedagem e manutenção;
+sem mensalidade da plataforma
+Mensalidade da plataforma e,
+muitas vezes, taxas sobre
+vendas e de aplicativos
+Personalização Muito alta (código e plugins) Alta, dentro do ecossistema e
+de temas
+Pagamentos no Brasil Plugin oficial do Mercado Pago
+(Pix, cartão e boleto)
+Depende de aplicativo ou
+gateway; confirmar
+disponibilidade e taxas
+Manutenção e
+segurança
+Responsabilidade do dono:
+atualizações, backup e
+segurança
+Gerenciadas pela plataforma
+Instagram Shopping Catálogo por plugin da Meta Integração nativa
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 6 of 27
+
+5.3 Stack e critérios de escolha de plugins
+Critérios para aceitar qualquer plugin: mantido ativamente, atualizado recentemente,
+compatível com HPOS e com o checkout em blocos, boa reputação, sem funcionalidades
+duplicadas, licença no nome do cliente e número mínimo de plugins.
+Função Sugestão (avaliar versão e compatibilidade no
+início)
+Núcleo WordPress e WooCommerce em versões atuais,
+armazenamento de pedidos de alto desempenho
+(HPOS) ativado, PHP em versão suportada
+Tema Tema leve e mantido (de blocos ou de mercado
+reconhecido) com tema filho; nada de
+construtores pesados sem necessidade
+Pagamentos Plugin oficial Mercado Pago payments for
+WooCommerce (compatível com o checkout em
+blocos do WooCommerce)
+Frete Correios for WooCommerce (integração com a API
+nova, exige contrato) e/ou Melhor Envio, Frenet ou
+Virtuaria (este tem modo básico sem contrato)
+Campos brasileiros Plugin de CPF/CNPJ, número, bairro e
+preenchimento por CEP (por exemplo, Brazilian
+Market on WooCommerce)
+Instagram e Facebook Facebook for WooCommerce (Meta) para o
+catálogo, pixel e API de conversões
+SEO Yoast SEO ou Rank Math, com dados estruturados
+de produto
+Desempenho Cache de página e de objetos, compressão de
+imagens (WebP), CDN
+Segurança e backup Firewall de aplicação, autenticação em dois fatores,
+backups externos
+E-mail SMTP com provedor transacional (SPF, DKIM e
+DMARC configurados)
+Privacidade Ferramenta de consentimento de cookies e dados
+pessoais
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 7 of 27
+
+5.4 Ambientes
+Código do tema filho e do plugin do site em Git; implantação por processo repetível;
+segredos em constantes do servidor, nunca no repositório.
+6. Requisitos funcionais
+6.1 Catálogo e navegação
+Ambiente Uso
+Local Desenvolvimento (LocalWP ou Docker)
+Homologação (staging) Testes, aprovação do cliente e ensaio de
+importação; credenciais de teste dos provedores
+Produção Loja ao vivo; nenhuma edição direta de código
+ID Requisito Aceite Pri. Origem
+RF-
+CAT-01
+Catálogo com 300 ou mais
+produtos, organizados em
+categorias e subcategorias
+Dado a planilha final, quando
+importada, então todos os
+produtos aparecem na
+categoria correta, sem
+duplicatas
+M [A]
+RF-
+CAT-02
+Produtos variáveis por
+tamanho e cor, com estoque,
+SKU e preço por variação
+Dado um produto com 5
+tamanhos e 2 cores, quando
+um tamanho esgotar, então
+ele aparece indisponível sem
+afetar os demais
+M [A]
+RF-
+CAT-03
+Página de produto com galeria,
+descrição, composição,
+cuidados, guia e tabela de
+medidas, disponibilidade e
+preço
+Dado um produto, quando
+aberto no celular, então todas
+as informações e o seletor de
+variação são utilizáveis sem
+rolagem lateral
+M [I]
+RF-
+CAT-04
+Preço promocional com
+agendamento de início e fim
+Dado uma promoção
+agendada, quando a data
+chegar, então o preço muda
+sem intervenção
+S [I]
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 8 of 27
+
+6.2 Carrinho, checkout e conta
+ID Requisito Aceite Pri. Origem
+RF-
+CAT-05
+Taxonomias de coleção
+(estação) e etiquetas (por
+exemplo, novidade, mais
+vendidos)
+Dado uma coleção, quando
+filtrada, então lista apenas
+seus produtos
+S [C]
+RF-
+CAT-06
+Produtos relacionados e
+"complete o look"
+Dado um produto, quando
+aberto, então mostra itens da
+mesma categoria ou
+vinculados manualmente
+C [C]
+RF-
+FLT-01
+Filtros por tamanho, cor (com
+amostras visuais) e faixa de
+preço, combináveis
+Dado filtros combinados,
+quando aplicados, então a
+lista e a contagem refletem a
+combinação; limpar restaura a
+lista
+M [A]
+RF-
+FLT-02
+Filtros com URL
+compartilhável, funcionando
+no celular e por teclado
+Dado uma URL com filtros,
+quando aberta, então o
+mesmo resultado aparece
+S [I]
+RF-
+FLT-03
+Busca com sugestões e
+tratamento de resultado vazio
+Dado um termo sem
+resultado, quando buscado,
+então aparece mensagem e
+sugestões de categorias
+S [I]
+RF-
+FLT-04
+Ordenação por relevância,
+novidades, menor e maior
+preço
+Dado uma ordenação, quando
+selecionada, então a lista
+reordena corretamente
+S [I]
+ID Requisito Aceite Pri. Origem
+RF-
+CRT-01
+Carrinho com alteração de
+quantidade, remoção, mini
+carrinho e persistência da
+sessão
+Dado um carrinho, quando a
+página recarrega, então os
+itens permanecem
+M [A]
+RF-
+CRT-02
+Estimativa de frete por CEP
+no produto e no carrinho
+Dado um CEP válido, quando
+consultado, então aparecem
+métodos, valores e prazos
+M [A]
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 9 of 27
+
+ID Requisito Aceite Pri. Origem
+RF-
+CRT-03
+Aplicação e remoção de
+cupom com mensagem de erro
+clara
+Dado um cupom expirado,
+quando aplicado, então o
+desconto não é concedido e a
+causa é explicada
+M [A]
+RF-
+CRT-04
+Aviso de estoque insuficiente
+na variação escolhida
+Dado estoque 1, quando o
+cliente pedir 2, então o limite
+é informado
+M [I]
+RF-
+CHK-01
+Checkout com compra como
+visitante e criação opcional de
+conta
+Dado um visitante, quando
+finalizar, então o pedido é
+criado sem cadastro
+obrigatório
+M [I]
+RF-
+CHK-02
+Campos brasileiros: CPF ou
+CNPJ validado, telefone, CEP
+com preenchimento
+automático, número,
+complemento, bairro
+Dado um CPF inválido,
+quando enviado, então o
+checkout bloqueia e explica
+M [I]
+RF-
+CHK-03
+Resumo claro do pedido (itens,
+frete, descontos e total) e
+aceite dos termos antes de
+pagar
+Dado o checkout, quando
+exibido, então o total final é
+visível antes do pagamento
+M [I]
+RF-
+CHK-04
+Página de confirmação com
+instruções de pagamento (Pix
+ou boleto) e e-mail de
+confirmação
+Dado um pedido por Pix,
+quando criado, então o QR
+code e o código copia e cola
+aparecem e são enviados por
+e-mail
+M [I]
+RF-
+ACC-01
+Conta do cliente: histórico de
+pedidos, rastreio, endereços,
+recuperação de senha
+Dado um cliente logado,
+quando abrir a conta, então
+vê pedidos e status
+atualizados
+S [I]
+RF-
+ACC-02
+Exportação e exclusão dos
+dados pessoais, atendendo à
+LGPD
+Dado um pedido de exclusão,
+quando processado, então os
+dados pessoais são
+anonimizados respeitando a
+guarda fiscal
+M [I]
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 10 of 27
+
+6.3 Pagamentos, frete e cupons
+ID Requisito Aceite Pri. Origem
+RF-
+PAG-01
+Pix com QR code, código copia
+e cola, expiração configurável e
+confirmação automática
+Dado um Pix pago, quando o
+webhook chegar, então o
+pedido muda para
+"processando" sem ação
+manual
+M [A]
+RF-
+PAG-02
+Cartão de crédito com
+parcelamento e tokenização
+(dados do cartão nunca
+passam ou ficam no servidor
+da loja)
+Dado um cartão de teste
+aprovado, quando pago, então
+o pedido é confirmado e
+nenhum número de cartão
+existe em banco ou log
+M [A]
+RF-
+PAG-03
+Boleto com vencimento
+configurável, linha digitável e
+link para impressão
+Dado um boleto, quando
+gerado, então o link e a linha
+digitável aparecem na
+confirmação e no e-mail
+M [A]
+RF-
+PAG-04
+Atualização de status por
+webhook, com tratamento de
+recusa, expiração,
+cancelamento e reembolso
+Dado um pagamento
+recusado, quando o status
+chegar, então o pedido fica
+"falhou" e o cliente pode
+tentar de novo
+M [I]
+RF-
+PAG-05
+Reembolso total ou parcial a
+partir do painel
+Dado um pedido pago,
+quando reembolsado, então o
+status e o estoque (se
+aplicável) são atualizados
+S [I]
+RF-
+FRT-01
+Frete automático por CEP,
+peso e dimensões, com PAC e
+SEDEX (contrato) e
+transportadoras via agregador
+Dado três CEPs de regiões
+distintas, quando cotados,
+então valores e prazos batem
+com a cotação do provedor
+M [A]
+RF-
+FRT-02
+Regras: frete grátis acima de
+um valor ou por região, prazo
+de manuseio e
+arredondamento de prazo
+Dado um pedido acima do
+valor, quando calculado, então
+o frete grátis aparece
+S [I]
+RF-
+FRT-03
+Retirada na loja física com
+endereço e instruções
+Dado a opção escolhida,
+quando finalizar, então o frete
+é zero e o e-mail traz o
+endereço
+C [C]
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 11 of 27
+
+6.4 Painel administrativo
+ID Requisito Aceite Pri. Origem
+RF-
+FRT-04
+Etiquetas e rastreio (via
+agregador ou Correios) e
+código de rastreio no e-mail e
+na conta
+Dado um envio, quando o
+código for registrado, então o
+cliente é notificado
+S [I]
+RF-
+CUP-01
+Cupons: percentual, valor fixo
+e frete grátis; mínimo de
+compra, limite de uso, validade
+e exclusões por categoria
+Dado um cupom com limite de
+100 usos, quando atingido,
+então não é mais aceito
+M [A]
+ID Requisito Aceite Pri. Origem
+RF-
+ADM-01
+Gestão de pedidos: filtros
+por status, notas internas,
+mudança de status,
+impressão e exportação
+Dado um pedido, quando o
+status mudar, então o cliente
+recebe o e-mail
+correspondente
+M [A]
+RF-
+ADM-
+02
+Gestão de estoque por
+variação, com alerta de
+estoque baixo e relatório
+Dado um limite configurado,
+quando o estoque cair abaixo,
+então o responsável é avisado
+M [A]
+RF-
+ADM-03
+Gestão de clientes com
+histórico e pesquisa
+Dado um cliente, quando
+consultado, então aparecem
+pedidos e totais
+M [A]
+RF-
+ADM-
+04
+Perfis de acesso:
+administrador, gerente da loja
+e atendimento, com privilégio
+mínimo
+Dado um usuário de
+atendimento, quando tentar
+alterar configurações de
+pagamento, então é negado
+M [I]
+RF-
+ADM-05
+Relatórios de vendas por
+período, produtos mais
+vendidos, cupons e estoque
+Dado um período, quando
+consultado, então os totais
+batem com os pedidos
+S [A]
+RF-
+ADM-
+06
+Painel simplificado para o dia
+a dia (atalhos e menus
+reduzidos) e manual ilustrado
+Dado o perfil gerente, quando
+logar, então vê apenas o
+necessário para operar
+S [A]
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 12 of 27
+
+6.5 Conteúdo, design e integrações
+ID Requisito Aceite Pri. Origem
+RF-
+EML-01
+E-mails transacionais
+personalizados (pedido
+recebido, pagamento
+pendente, confirmado,
+enviado, cancelado) via
+provedor SMTP
+Dado um pedido, quando
+mudar de estado, então o e-
+mail chega, não cai no spam
+em teste e traz a marca
+M [I]
+ID Requisito Aceite Pri. Origem
+RF-
+DSG-01
+Design elegante e responsivo
+(primeiro o celular) conforme
+a identidade visual aprovada
+Dado as telas aprovadas,
+quando comparadas ao site,
+então fontes, cores e
+espaçamentos coincidem
+M [A]
+RF-
+DSG-02
+Páginas: início, categoria,
+produto, carrinho, checkout,
+conta, sobre, contato, trocas e
+devoluções, privacidade,
+termos e perguntas
+frequentes
+Dado a lista, quando
+publicada, então todas
+existem e estão no menu ou
+rodapé
+M [I]
+RF-
+SEO-01
+SEO técnico e on-page (seção
+11)
+Dado o checklist, quando
+auditado, então todos os itens
+M passam
+M [A]
+RF-IGS-
+01
+Instagram Shopping com
+catálogo sincronizado e
+produtos marcáveis em
+publicações (seção 12)
+Dado o catálogo aprovado
+pela Meta, quando um
+produto for marcado, então o
+link leva à página do produto
+no site
+M [A]
+RF-
+ANL-01
+Analítica (GA4) com eventos
+de e-commerce e
+consentimento de cookies
+Dado um fluxo de compra de
+teste, quando concluído,
+então os eventos de
+visualização, carrinho, início
+de checkout e compra
+aparecem
+S [I]
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 13 of 27
+
+7. Requisitos não funcionais
+ID Requisito Aceite Pri. Origem
+RF-
+LGL-01
+Informações legais
+obrigatórias e políticas (seção
+13)
+Dado o rodapé, quando
+inspecionado, então traz
+CNPJ, endereço, contato e
+links das políticas
+M [I]
+ID Categoria Requisito e meta
+RNF-01 Desempenho Nas páginas-chave (início, categoria, produto,
+carrinho e checkout), buscar os limites "bom" das
+métricas essenciais da web: LCP até 2,5 s, INP até
+200 ms e CLS até 0,1 (medidos em campo ou em
+laboratório, no celular)
+RNF-02 Disponibilidade Meta de 99,5% mensal, com monitoramento
+externo e alerta
+RNF-03 Segurança HTTPS em todo o site, atualizações aplicadas em
+homologação antes da produção, autenticação em
+dois fatores para administradores, firewall, limite
+de tentativas de login, sem usuário admin  padrão
+RNF-04 Pagamentos Dados de cartão nunca tocam o servidor
+(tokenização do provedor); chaves de API fora do
+banco e do repositório; validação de origem dos
+webhooks
+RNF-05 Backup e recuperação Backups diários do banco e dos arquivos, em local
+externo, retenção de 14 a 30 dias e teste de
+restauração documentado
+RNF-06 Compatibilidade Últimas versões dos principais navegadores, Safari
+no iOS e Chrome no Android; telas a partir de 360
+px
+RNF-07 Acessibilidade Meta de conformidade WCAG 2.1 nível AA nos
+fluxos de compra (contraste, teclado, rótulos, foco
+visível, texto alternativo)
+RNF-08 SEO Páginas indexáveis, dados estruturados válidos e
+sem conteúdo duplicado por filtros
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 14 of 27
+
+8. Catálogo: modelo de dados e importação
+8.1 Modelo de produto
+ID Categoria Requisito e meta
+RNF-09 Escalabilidade Suportar picos de promoção com cache de página,
+cache de objetos e CDN; checkout e carrinho fora
+do cache
+RNF-10 Manutenibilidade Tema filho, código do site em plugin próprio, Git,
+lista de plugins documentada e padrão de
+codificação do WordPress
+RNF-11 Observabilidade Registro de erros, monitoramento de
+disponibilidade e alerta de falha de webhook ou de
+e-mail
+RNF-12 Idioma e formatos Português do Brasil; moeda em reais; datas e
+endereços no padrão brasileiro
+RNF-13 Privacidade LGPD: consentimento de cookies, minimização de
+dados e política clara
+Elemento Regra
+SKU Único por variação; padrão definido (por exemplo,
+VES-001-PRETO-M )
+Atributos globais Tamanho (PP, P, M, G, GG ou numeração) e Cor com
+lista controlada (nome e código hexadecimal para
+a amostra)
+Atributos informativos Composição, modelagem, cuidados, comprimento
+e altura da modelo
+Categorias Árvore definida com o cliente (por exemplo,
+Vestidos, Blusas, Calças, Saias, Conjuntos,
+Acessórios), com nomes e slugs estáveis
+Coleção e etiquetas Taxonomias separadas das categorias
+Peso e dimensões Obrigatórios para o cálculo de frete (do produto
+embalado)
+Estoque Controle por variação, com limite de alerta
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 15 of 27
+
+8.2 Planilha de importação (colunas mínimas)
+sku_pai , sku , tipo  (simples, variável ou variação), nome , descricao_curta ,
+descricao , categorias , colecao , tamanho , cor , preco , preco_promocional ,
+estoque , peso_kg , comprimento_cm , largura_cm , altura_cm , imagens  (URLs ou
+nomes de arquivo), composicao , cuidados , tabela_de_medidas , titulo_seo ,
+descricao_seo .
+8.3 Boas práticas de importação
+Modelo único de planilha entregue ao cliente, com exemplos e lista de valores aceitos.
+Validação automática antes de importar (SKU duplicado, atributo fora da lista, preço
+vazio, peso ausente, imagem inexistente).
+Ensaio em homologação (dry-run), conferindo uma amostra de pelo menos 10% dos
+produtos e todos os casos extremos.
+Importação em lotes (por exemplo, 50 a 100 produtos) e relatório de erros por linha.
+Cuidado com o volume de variações: 300 produtos com 5 tamanhos e 2 cores somam
+cerca de 3.000 variações, o que exige índices, cache e filtros bem escolhidos.
+Congelar o catálogo na homologação e reimportar apenas as diferenças na produção.
+9. Pagamentos com Mercado Pago
+9.1 Escolha do modelo de checkout
+O plugin oficial do Mercado Pago para WooCommerce oferece dois modelos, e pode
+combiná-los:
+Elemento Regra
+Imagens Proporção única (por exemplo, 3:4), lado maior de
+pelo menos 1.500 px, fundo consistente, nome de
+arquivo padronizado, texto alternativo descritivo
+Preços Preço regular e promocional em reais, com data de
+início e fim quando houver
+Modelo Experiência Meios de pagamento Avaliação
+Checkout
+Transparente
+O cliente paga
+dentro da loja
+Cartão de crédito ou
+débito, Pix e boleto
+Recomendado: mantém
+a marca e costuma
+reduzir abandono
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 16 of 27
+
+Decisão a confirmar com o cliente [C]. O plugin é compatível com o checkout em blocos
+do WooCommerce; ainda assim, valide a versão do plugin, do WooCommerce e do tema
+juntos em homologação.
+9.2 Requisitos de configuração
+Conta do Mercado Pago verificada, com chave Pix cadastrada (necessária para ativar
+o Pix).
+Credenciais de teste e de produção separadas; guardadas como segredos do servidor,
+nunca no código, no repositório ou em mensagens.
+URL pública de notificação (webhook) acessível por HTTPS e liberada no firewall e no
+cache.
+Coleta de CPF ou CNPJ no checkout (exigida para Pix e boleto).
+E-mails de confirmação configurados no WooCommerce (o plugin não substitui os e-
+mails da loja).
+9.3 Regras de negócio a definir
+Modelo Experiência Meios de pagamento Avaliação
+Checkout Pro O cliente é levado ao
+ambiente do
+Mercado Pago
+Cartão, Pix, boleto,
+conta Mercado Pago
+e linha de crédito
+Alternativa mais
+simples; bom como
+opção complementar
+Regra Decisão necessária
+Parcelamento Número máximo de parcelas, valor mínimo da
+parcela e quem arca com os juros (loja ou cliente)
+Pix Tempo de expiração do código; desconto para
+pagamento à vista, se houver
+Boleto Dias para vencimento e prazo de compensação
+considerado
+Reserva de estoque Minutos de retenção do estoque para pedidos
+pendentes (curto para Pix, maior para boleto), com
+cancelamento automático depois
+Descontos Se cupons somam com desconto do meio de
+pagamento
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 17 of 27
+
+9.4 Comportamento esperado dos status
+O mapeamento depende da versão do plugin e deve ser confirmado nos testes (seção 15).
+9.5 Segurança e confiabilidade
+Tokenização: os dados do cartão vão do navegador ao provedor; o servidor da loja não
+armazena nem registra número, validade ou código de segurança. Isso reduz o escopo
+de conformidade (PCI); confirme o enquadramento com o provedor.
+Webhooks: validar a origem (assinatura, quando disponível) e consultar o status do
+pagamento pela API antes de alterar o pedido, sem confiar apenas no conteúdo
+recebido.
+Idempotência: processar duas vezes a mesma notificação não pode duplicar baixa de
+estoque, e-mail ou reembolso; notificações fora de ordem não podem regredir o status.
+Duplo clique e novas tentativas: impedir pedidos duplicados por reenvio do
+formulário.
+Logs sem dados pessoais sensíveis e com retenção limitada.
+Conciliação: rotina diária ou semanal comparando pedidos aprovados e relatório do
+Mercado Pago, e alerta de webhook com falha.
+Situação no Mercado
+Pago
+Status do pedido no
+WooCommerce
+Ação esperada
+Aprovado Processando Baixa de estoque e e-mail de
+confirmação
+Pendente ou em
+análise
+Aguardando pagamento Estoque retido pelo prazo definido
+Recusado Falhou Cliente pode tentar de novo;
+mensagem clara e sem expor
+detalhes de antifraude
+Cancelado ou
+expirado
+Cancelado Estoque liberado
+Reembolsado Reembolsado Estoque reposto quando aplicável
+Contestado
+(chargeback)
+Em espera, com alerta ao
+gerente
+Tratar a disputa no painel do
+Mercado Pago
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 18 of 27
+
+9.6 Matriz de testes de pagamento
+Use as credenciais e cartões de teste do Mercado Pago em homologação. Em modo
+de teste, algumas notificações podem se comportar de forma diferente da produção,
+por isso o teste P11 é obrigatório.
+10. Frete e logística
+10.1 Opções de integração
+# Cenário Resultado esperado
+P1 Pix pago Pedido vai para "processando" sozinho
+P2 Pix não pago até expirar Pedido cancelado e estoque liberado
+P3 Cartão aprovado à vista e parcelado Valores e número de parcelas corretos
+P4 Cartão recusado Pedido "falhou" e nova tentativa possível
+P5 Boleto gerado e pago Confirmação após a compensação
+P6 Boleto vencido Cancelamento e liberação de estoque
+P7 Reembolso total e parcial Status, valores e estoque atualizados
+P8 Notificação duplicada ou fora de
+ordem
+Sem efeitos duplicados nem regressão de
+status
+P9 Falha de rede durante o pagamento Sem pedido duplicado nem cobrança sem
+pedido
+P10 Cupom, frete grátis e desconto
+juntos
+Total correto, com arredondamento em
+centavos
+P11 Compra real de baixo valor em
+produção
+Fluxo completo validado antes do anúncio da
+loja
+Opção Como funciona Observações
+Correios (API nova) Cotação e serviços conforme
+o contrato do cliente (PAC,
+SEDEX e outros)
+Exige contrato em CNPJ e
+nível mínimo de contrato
+conforme o plugin;
+dependência do cliente
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 19 of 27
+
+Recomendação: um agregador para cotar Correios e transportadoras e gerar etiquetas,
+mais a integração oficial dos Correios se o cliente já tiver contrato, e uma tabela própria
+como contingência.
+10.2 Regras e boas práticas
+Peso e dimensões obrigatórios em todo produto; produto sem esses dados não pode
+ser publicado (validação na importação).
+Definir as caixas e embalagens padrão e como o carrinho com vários itens é
+empacotado.
+CEP de origem, prazo de manuseio (tempo para despachar) e arredondamento do
+prazo.
+Frete grátis por valor mínimo ou região, com a regra explícita para o cliente.
+Valor declarado e seguro: decisão do cliente.
+Tempo limite e contingência: se a cotação falhar, mostrar mensagem clara ou usar a
+tabela de contingência, sem travar o checkout.
+Cache curto das cotações para reduzir chamadas e lentidão.
+Rastreio no e-mail e na conta; etiquetas geradas pelo agregador ou pelos Correios.
+Logística reversa (trocas e devoluções) descrita na política; automação é fora do
+escopo base.
+10.3 Testes de frete
+CEPs da capital de São Paulo, interior paulista, outra região do Sudeste, Nordeste, Norte e
+uma área de difícil acesso; item leve e pesado; vários itens; cupom de frete grátis; produto
+sem peso (deve ser bloqueado); falha simulada da API; comparação dos valores com a
+cotação direta no provedor.
+Opção Como funciona Observações
+Agregadores (Melhor
+Envio, Frenet)
+Cotação de várias
+transportadoras e geração de
+etiquetas
+Menos burocracia;
+confirmar taxas e regras de
+cada serviço
+Modo básico sem contrato
+(por exemplo, Virtuaria)
+Cotação e rastreio sem
+contrato direto com os
+Correios
+Pode ter limitações; avaliar
+Tabela própria por região
+ou faixa de CEP
+Valores fixos por zona de
+entrega
+Plano de contingência se a
+API estiver fora do ar
+Retirada na loja Frete zero com instruções Opcional [C]
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 20 of 27
+
+11. SEO e analítica
+Delimitação: "SEO otimizado" significa SEO técnico e on-page configurados e
+verificados. Posicionamento em buscas não é garantido e depende de conteúdo,
+concorrência e tempo.
+Área Requisito (M = obrigatório)
+URLs e estrutura URLs limpas e estáveis para categorias e produtos
+(M); migalhas de pão (breadcrumbs) (M); sem
+números de paginação sem tratamento (M)
+Indexação Sitemap XML (M); robots.txt  correto (M);
+canonical  em todas as páginas (M); combinações
+de filtros, busca interna, carrinho, checkout e
+conta fora do índice (M); área de testes bloqueada
+(M)
+Dados estruturados Product  com Offer  (preço, moeda,
+disponibilidade), BreadcrumbList  e
+Organization ; LocalBusiness  para a loja física
+(S); validação no teste de rich results (M)
+On-page Modelos de título e meta description por tipo de
+página, com personalização nas páginas principais
+(M); um único H1 e hierarquia coerente (M); texto
+alternativo nas imagens (M); descrições únicas dos
+produtos, a cargo do cliente (S)
+Desempenho Metas da RNF-01; imagens em WebP com
+carregamento tardio (M)
+Redirecionamentos 301 para URLs antigas, se houver site anterior (M);
+página 404 útil (S)
+Social Open Graph e cartões para compartilhamento (S)
+Busca local Perfil da empresa no Google com endereço e
+horário da loja em São Paulo (S, a cargo do cliente)
+Analítica GA4 com eventos de e-commerce (visualização de
+item, adição ao carrinho, início de checkout, dados
+de pagamento e compra) (S); Google Search
+Console verificado e sitemap enviado (M);
+consentimento de cookies respeitado (M)
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 21 of 27
+
+12. Instagram Shopping
+12.1 O que esperar no Brasil
+O checkout nativo dentro do Instagram deixou de existir: os compradores são
+enviados ao site do vendedor para finalizar a compra. No Brasil, o Instagram Shopping
+funciona como vitrine do catálogo, com os produtos levando à página da loja.
+Todos os produtos do catálogo precisam estar disponíveis para compra no domínio
+verificado, e o checkout externo precisa funcionar.
+O recurso é para produtos físicos e exige cumprir as políticas de comércio da Meta.
+12.2 Pré-requisitos (cliente) e entrega (desenvolvedor)
+12.3 Boas práticas
+Catálogo sincronizado pelo plugin; evitar editar os itens diretamente no Commerce
+Manager quando houver integração.
+Item Responsável
+Conta profissional (empresa) do Instagram Cliente
+Página do Facebook vinculada à conta do
+Instagram
+Cliente
+Portfólio empresarial (Gerenciador de
+Negócios) com os ativos
+Cliente
+Catálogo no Commerce Manager e conta de
+comércio
+Cliente, com apoio do desenvolvedor
+Verificação do domínio na Meta Desenvolvedor, com acesso concedido pelo
+cliente
+Instalação e configuração do plugin
+Facebook for WooCommerce e
+sincronização do catálogo
+Desenvolvedor
+Pixel e API de conversões, com
+consentimento
+Desenvolvedor [C]
+Solicitação de análise e acompanhamento da
+aprovação
+Cliente e desenvolvedor
+Marcação dos produtos em publicações e
+stories
+Cliente (capacitação incluída)
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 22 of 27
+
+Campos completos e consistentes: título, descrição, preço, disponibilidade, link,
+imagem de qualidade, marca e agrupamento de variações.
+Preço e estoque no catálogo iguais aos do site.
+Aprovação da Meta leva alguns dias; inclua isso no cronograma e não prometa data de
+liberação.
+Confirmar as regras vigentes no Commerce Manager no momento da configuração,
+pois mudam.
+13. Legal, privacidade e segurança
+Este material não substitui orientação jurídica. O cliente deve validar os textos legais
+com advogado ou assessoria.
+13.1 Informações e políticas obrigatórias na loja
+13.2 LGPD
+Elemento Conteúdo
+Identificação do fornecedor Razão social, CNPJ, endereço físico e eletrônico,
+meios de contato e atendimento (em local de fácil
+visualização)
+Oferta Características essenciais do produto, preço total
+(inclusive frete e encargos), condições e formas
+de pagamento, prazo de entrega
+Direito de arrependimento Prazo de 7 dias para desistir de compras feitas
+fora do estabelecimento, com meio facilitado de
+exercê-lo e instruções de devolução
+Política de trocas e devoluções Prazos, condições, custos e procedimento
+Confirmação do pedido E-mail imediato com o resumo da compra
+Termos de uso e política de
+privacidade
+Redigidos com o cliente e revisados juridicamente
+Tema Requisito
+Dados tratados Nome, CPF ou CNPJ, e-mail, telefone, endereço e
+histórico de compras
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 23 of 27
+
+13.3 Nota fiscal
+A venda online exige emissão de nota fiscal. A integração com um emissor está fora do
+escopo base, mas a loja deve coletar os dados necessários (CPF ou CNPJ, endereço
+completo) e, se o cliente optar por integrar, deve-se prever campos fiscais por produto
+(por exemplo, NCM e origem). Decisão do cliente na semana 1.
+13.4 Segurança do site (checklist)
+WordPress, WooCommerce, tema e plugins atualizados, com atualizações testadas em
+homologação; remover plugins e temas não usados.
+Edição de arquivos pelo painel desativada; permissões de arquivos corretas; acesso
+ao wp-config.php  protegido.
+Autenticação em dois fatores para administradores e gerentes; senhas fortes; menor
+privilégio nos perfis.
+Firewall de aplicação, limite de tentativas de login e proteção contra automação
+(desafio invisível) em login, cadastro e cupom, sem prejudicar a conversão.
+Cabeçalhos de segurança (HSTS, tipo de conteúdo, política de quadros) e cookies
+seguros.
+Tema Requisito
+Bases legais Execução do contrato e obrigação legal para os
+pedidos; consentimento para cookies de
+marketing, análise e comunicações promocionais
+Minimização Pedir apenas o necessário; sem campos "por
+precaução"
+Cookies Banner com escolha real; scripts de análise e
+marketing só após o consentimento
+Direitos do titular Canal para acesso, correção e exclusão
+(ferramentas de exportação e apagamento do
+WordPress e do WooCommerce), respeitando
+prazos de guarda fiscal
+Operação com terceiros Listar os operadores (Mercado Pago, provedor de
+e-mail, Meta, Google, hospedagem) e a possível
+transferência internacional na política
+Incidentes Plano básico de resposta e contato do encarregado
+Retenção Definir por quanto tempo guardar pedidos, contas
+inativas e logs
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 24 of 27
+
+Usuário de banco com privilégios mínimos e prefixo de tabelas não padrão.
+Verificação de integridade e scan de malware periódicos; registros de acesso e de erro.
+Backups fora do servidor e testados (RNF-05).
+Limitar a exposição de endpoints desnecessários (por exemplo, XML-RPC) e de
+enumeração de usuários.
+14. Boas práticas de engenharia e entrega
+Área Prática
+Código Tema filho e plugin do site; nunca editar o núcleo, o
+tema pai ou plugins de terceiros; padrão de
+codificação do WordPress (PHPCS); hooks e filtros
+em vez de alterações diretas
+Segurança no código Higienizar entradas, escapar saídas, usar nonces e
+verificação de permissões ( current_user_can ) e
+consultas preparadas ( $wpdb->prepare )
+Configuração Segredos em constantes do servidor, depuração
+desligada em produção, edição de arquivos
+desativada
+Versionamento Git com branches e revisão, tags por versão e
+registro de mudanças
+Implantação Homologação → produção por processo repetível,
+backup antes de cada implantação e plano de
+rollback; modo de manutenção curto
+Plugins Política da seção 5.3; lista documentada (nome,
+versão, finalidade, licença, responsável)
+Desempenho Imagens otimizadas, cache de página e de objetos,
+carrinho, checkout e conta fora do cache, atrasar
+scripts não essenciais, evitar plugins pesados
+Acessibilidade Estrutura semântica, contraste, foco visível, rótulos
+e mensagens de erro legíveis, teste com teclado
+Observabilidade Monitor de disponibilidade, alerta de erros fatais e
+de falha de webhook e de e-mail
+Documentação README técnico, mapa de integrações,
+procedimentos (publicar, restaurar, atualizar),
+manual do operador e vídeos curtos
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 25 of 27
+
+Definição de pronto (por funcionalidade): implementada no tema filho ou plugin do site,
+testada em homologação no celular e no desktop, validada com dados reais de teste,
+documentada e aprovada pelo cliente.
+15. Qualidade: plano de testes e critérios de aceite
+15.1 Plano de testes
+Área Prática
+Gestão Quadro de tarefas, relatório semanal por e-mail,
+reunião curta de acompanhamento e registro de
+decisões e impedimentos
+Credenciais Gerenciador de senhas; contas e licenças no nome
+do cliente; acessos revogados ao fim do projeto
+Testes Checklists (seção 15) e, se houver tempo, teste
+automatizado do fluxo de compra
+Tipo Escopo Ferramentas e métodos
+Funcional Catálogo, filtros, busca, carrinho,
+cupons, checkout, conta e painel
+Roteiros de teste e dados de teste
+Pagamentos Matriz P1 a P11 (seção 9.6) Credenciais de teste e compra real
+de baixo valor
+Frete Cenários da seção 10.3 Comparação com a cotação direta
+Catálogo Amostra de pelo menos 10% e
+casos extremos
+Conferência por planilha
+Responsividade Celulares e tablets comuns,
+orientações e navegadores
+Dispositivos reais e emuladores
+Desempenho Páginas-chave no celular PageSpeed Insights, Lighthouse e
+WebPageTest
+SEO Dados estruturados, indexação e
+sitemap
+Teste de resultados enriquecidos e
+Search Console
+Acessibilidade Teclado, contraste e leitores de
+tela nos fluxos de compra
+axe e testes manuais
+Segurança Perfis, permissões, atualizações e
+varredura básica
+Verificação de configuração e
+scanner
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 26 of 27
+
+15.2 Checklist de publicação (go-live)
+15.3 Critérios de aceite do projeto
+Todos os requisitos M das seções 6 e 7 atendidos ou com desvio aprovado por escrito.
+Um cliente consegue comprar de ponta a ponta (celular e desktop) por Pix, cartão e
+boleto, com frete calculado e cupom, e a equipe consegue processar o pedido pelo
+painel.
+Metas de desempenho, acessibilidade e segurança verificadas e documentadas, ou
+desvios registrados.
+Documentação, manual e treinamento entregues; acessos transferidos ao cliente.
+Tipo Escopo Ferramentas e métodos
+E-mails Entrega, SPF, DKIM e DMARC, e
+conteúdo
+Teste de entregabilidade
+LGPD Banner de cookies, bloqueio de
+scripts sem consentimento,
+exportação e exclusão
+Inspeção e teste manual
+Recuperação Restauração de backup em
+ambiente limpo
+Procedimento documentado
+Aceite (UAT) Compra completa pela equipe do
+cliente
+Roteiro assinado
+Contas de pagamento, frete, domínio e hospedagem no nome do cliente
+Credenciais de produção configuradas e de teste desativadas
+Compra real de baixo valor aprovada (Pix e cartão) e boleto gerado
+Frete conferido com cotações reais; produtos sem peso ou dimensões: zero
+Catálogo final importado e conferido; estoque inicial correto
+Páginas legais publicadas e revisadas pelo cliente; banner de cookies ativo
+E-mails transacionais entregues na caixa de entrada
+Sitemap enviado; Search Console e GA4 funcionando; noindex  removido
+Backups diários ativos e restauração testada
+Monitoramento de disponibilidade e alertas ativos
+Usuários do cliente criados com perfis corretos; 2FA ativo; contas de teste removidas
+Instagram Shopping configurado ou plano de liberação registrado
+Manual entregue e treinamento realizado
+Plano de rollback e contato de suporte combinados
+Projeto Freelancer: E-commerce de Moda Feminina (WooCommerce) – Requisitos e Delimitação
+Page 27 of 27

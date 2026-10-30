@@ -45,13 +45,28 @@
 - `products-demo.csv` — 4 produtos iniciais de moda feminina com imagens via picsum
 - Tema Child completo pronto para ativação
 
-**Ação necessária:** Inicie o **Docker Desktop**, execute `./setup.ps1`, complete a instalação do WordPress/WooCommerce e diga "continue". 
+**Status Docker (14:29):** Serviço continua parado (`Stopped`).
 
-Então vamos importar automaticamente os produtos, ativar o tema customizado e avançar para filtros, variações e lookbook.
+**Ação necessária (por favor execute agora):**
+1. Abra o aplicativo **Docker Desktop** (busque no menu Iniciar).
+2. Aguarde até aparecer "Docker Engine running" (pode levar até 1 minuto).
+3. No PowerShell, execute:
+   ```powershell
+   cd C:\Projetos\E-commerce
+   ./setup.ps1
+   ```
+4. Depois diga **"continue"** ou "docker ok".
 
-**Próximos passos imediatos que vou executar:**
-1. Criar script de inicialização automática (`setup.ps1`)
-2. Adicionar arquivo `.env` exemplo
+**Quando isso for feito eu vou automaticamente:**
+- Verificar containers
+- Criar `wp-cli-setup.ps1` para configurar WooCommerce, tema e importar produtos demo de moda feminina
+- Expandir o catálogo com mais itens
+
+O projeto está completamente pronto do lado do código. Só falta o Docker subir para termos o site funcionando.
+
+**Repositório atualizado:** https://github.com/PauloHFA/E-commerce
+
+Aguardando sua ação para prosseguir com a fase de configuração automática.
 3. Documentar passos de configuração do WooCommerce para moda feminina
 
 Estou prosseguindo com a implementação agora.

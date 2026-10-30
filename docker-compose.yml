@@ -1,33 +1,63 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
-    restart: always
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wpuser
-      MYSQL_PASSWORD: wppassword
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-wordpress}
+      MYSQL_USER: ${MYSQL_USER:-wpuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wppassword}
     volumes:
       - db-data:/var/lib/mysql
+      - ./scripts/mysql-auth.sh:/docker-entrypoint-initdb.d/01-auth.sh:ro
     ports:
-      - '3306:3306'
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
 
   wordpress:
-    image: wordpress:latest
-    restart: always
+    image: wordpress:php8.2-apache
+    restart: unless-stopped
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
-      - '8080:80'
+      - "8088:80"
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wpuser
-      WORDPRESS_DB_PASSWORD: wppassword
-      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wpuser}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wppassword}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
     volumes:
       - wordpress-data:/var/www/html
+      - ./frontend:/var/www/html/wp-content/themes/moda-feminina
+
+  wpcli:
+    image: wordpress:cli-php8.2
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-wpuser}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-wppassword}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-wordpress}
+      SITE_URL: ${SITE_URL:-http://localhost:8088}
+      WP_ADMIN_USER: ${WP_ADMIN_USER:-admin}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD:-admin-local-only}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL:-admin@example.com}
+    volumes:
+      - wordpress-data:/var/www/html
+      - ./frontend:/var/www/html/wp-content/themes/moda-feminina
+      - ./scripts:/scripts:ro
+    profiles:
+      - tools
 
 volumes:
   db-data:
