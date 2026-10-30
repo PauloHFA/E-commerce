@@ -44,7 +44,13 @@ Este projeto implementa todos os requisitos do documento "Projeto Freelancer E-c
 ## Plano de Implementação
 Veja o plano completo e atualizado em [docs/plano-implementacao.md](docs/plano-implementacao.md).
 
-**Status atual:** Infraestrutura Docker + scripts de setup criados. O ambiente local está pronto para uso. Próxima etapa: configuração automática do WooCommerce e tema customizado com identidade visual feminina.
+**Status atual:** 
+- Infraestrutura Docker + scripts de setup
+- Tema Child completo (CSS elegante, functions.php com customizações WooCommerce, JS com animações)
+- Arquivos de importação (products-demo.csv + woocommerce-setup.sql)
+- Primeiro commit enviado para https://github.com/PauloHFA/E-commerce
+
+**Próxima etapa:** Assim que você iniciar o Docker Desktop e rodar `./setup.ps1`, vamos automatizar a ativação do WooCommerce, aplicação do tema e importação dos produtos demo de moda feminina.
 
 ---
 *Implementado com Copilot SDK em VS Code - 30/10/2026*

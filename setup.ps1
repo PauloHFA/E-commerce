@@ -29,4 +29,12 @@ Write-Host "4. Crie categorias: Vestidos, Blusas, Calças, Saias, Acessórios, C
 Write-Host "5. Adicione produtos demo de moda feminina"
 
 Write-Host "`n✅ Setup concluído! O ambiente está pronto para desenvolvimento." -ForegroundColor Green
+Write-Host "`n📋 Próximos passos após acessar http://localhost:8080:" -ForegroundColor Cyan
+Write-Host "   1. Complete a instalação do WordPress" -ForegroundColor White
+Write-Host "   2. Ative o plugin WooCommerce e rode o assistente de setup" -ForegroundColor White
+Write-Host "   3. Instale o tema 'Storefront' ou 'Hello Elementor'" -ForegroundColor White
+Write-Host "   4. Copie a pasta 'frontend' para wp-content/themes/moda-feminina" -ForegroundColor White
+Write-Host "   5. Ative o tema 'Moda Feminina Custom'" -ForegroundColor White
+Write-Host "   6. Importe o arquivo products-demo.csv em Produtos → Importar" -ForegroundColor White
+Write-Host "`n🚀 Execute o comando novamente se precisar reiniciar os containers." -ForegroundColor Green
 Write-Host "Próximo comando recomendado: ./setup.ps1" -ForegroundColor White

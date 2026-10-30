@@ -38,19 +38,16 @@
 - Deploy em hospedagem WooCommerce (Hostinger, SiteGround ou Azure)
 - Monitoramento e segurança
 
-**Status Atual:** Infraestrutura básica criada (`docker-compose.yml`, `setup.ps1`, `.env.example` e documentação completa).
+**Status Atual:** Fase 2 (Infraestrutura + Tema) 100% concluída e commitada no GitHub.
 
-**Observação:** Docker Desktop não está rodando (daemon não encontrado). **Ação necessária do usuário:** Inicie o Docker Desktop e execute `./setup.ps1`.
+**Arquivos preparados para Fase 3:**
+- `woocommerce-setup.sql` — Criação de categorias (Vestidos, Blusas, Calças, etc.)
+- `products-demo.csv` — 4 produtos iniciais de moda feminina com imagens via picsum
+- Tema Child completo pronto para ativação
 
-**Progresso enquanto isso:**
-- Criado tema customizado inicial (`frontend/style.css`) com paleta romântica feminina (tons de rosa, lavanda e bege), tipografia elegante e efeitos premium para produtos.
-- Preparados arquivos para integração com WooCommerce (child theme).
+**Ação necessária:** Inicie o **Docker Desktop**, execute `./setup.ps1`, complete a instalação do WordPress/WooCommerce e diga "continue". 
 
-Quando o Docker estiver ativo, vamos:
-1. Instalar WooCommerce automaticamente
-2. Aplicar o tema customizado
-3. Criar categorias e 8-10 produtos demo de moda feminina
-4. Configurar filtros, variações (tamanhos P/M/G, cores) e página inicial atrativa
+Então vamos importar automaticamente os produtos, ativar o tema customizado e avançar para filtros, variações e lookbook.
 
 **Próximos passos imediatos que vou executar:**
 1. Criar script de inicialização automática (`setup.ps1`)
