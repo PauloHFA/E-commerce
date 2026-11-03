@@ -2803,15 +2803,40 @@ Tags: e-commerce, fashion, women, woocommerce, responsive
         background: var(--color-bg-secondary);
     }
 
+    .mf-product-card__image-wrapper > img,
     .mf-product-card__image {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform var(--transition-slower);
+        display: block;
     }
 
-    .mf-product-card:hover .mf-product-card__image {
-        transform: scale(1.03);
+    .mf-product-card__image--primary {
+        transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform var(--transition-slower);
+    }
+
+    .mf-product-card__image--hover {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        z-index: 1;
+        transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .mf-product-card:not(.has-hover-image):hover .mf-product-card__image--primary {
+            transform: scale(1.03);
+        }
+
+        .mf-product-card.has-hover-image:hover .mf-product-card__image--primary,
+        .mf-product-card.has-hover-image:focus-within .mf-product-card__image--primary {
+            opacity: 0;
+        }
+
+        .mf-product-card.has-hover-image:hover .mf-product-card__image--hover,
+        .mf-product-card.has-hover-image:focus-within .mf-product-card__image--hover {
+            opacity: 1;
+        }
     }
 
     .mf-product-card__badges {
@@ -4325,6 +4350,8 @@ Tags: e-commerce, fashion, women, woocommerce, responsive
     
         .mf-instagram__image,
         .mf-product-card__image,
+        .mf-product-card__image--primary,
+        .mf-product-card__image--hover,
         .mf-collection-card__bg {
             transition: none;
         }

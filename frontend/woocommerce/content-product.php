@@ -17,7 +17,66 @@ if (!$product || !$product->is_visible()) {
 
 $product_id = $product->get_id();
 $product_url = $product->get_permalink();
-$product_image = $product->get_image('woocommerce_single', array('loading' => 'lazy'));
+$product_image = $product->get_image('woocommerce_single', array(
+    'loading' => 'lazy',
+    'class'   => 'mf-product-card__image mf-product-card__image--primary',
+));
+
+$hover_image = '';
+$gallery_ids = $product->get_gallery_image_ids();
+if (!empty($gallery_ids)) {
+    $hover_image = wp_get_attachment_image(
+        (int) $gallery_ids[0],
+        'woocommerce_single',
+        false,
+        array(
+            'class'       => 'mf-product-card__image mf-product-card__image--hover',
+            'alt'         => '',
+            'aria-hidden' => 'true',
+            'loading'     => 'lazy',
+        )
+    );
+}
+
+if (!$hover_image && $product->is_type('variable')) {
+    $parent_image_id = (int) $product->get_image_id();
+    foreach ($product->get_children() as $child_id) {
+        $variation = wc_get_product($child_id);
+        if (!$variation) {
+            continue;
+        }
+        $variation_image_id = (int) $variation->get_image_id();
+        if ($variation_image_id && $variation_image_id !== $parent_image_id) {
+            $hover_image = wp_get_attachment_image(
+                $variation_image_id,
+                'woocommerce_single',
+                false,
+                array(
+                    'class'       => 'mf-product-card__image mf-product-card__image--hover',
+                    'alt'         => '',
+                    'aria-hidden' => 'true',
+                    'loading'     => 'lazy',
+                )
+            );
+            break;
+        }
+    }
+}
+
+// Local catalog still uses the WooCommerce placeholder. Show a second frame
+// until a real gallery image is attached. Real photos without a gallery keep the zoom only.
+if (!$hover_image && !$product->get_image_id()) {
+    $fallback_images = array(
+        '/images/products/product-placeholder-2.svg',
+        '/images/products/product-placeholder-3.svg',
+        '/images/products/product-placeholder-1.svg',
+    );
+    $fallback = $fallback_images[$product_id % 3];
+    $hover_image = sprintf(
+        '<img class="mf-product-card__image mf-product-card__image--hover" src="%s" alt="" aria-hidden="true" loading="lazy" width="800" height="1000" />',
+        esc_url(get_stylesheet_directory_uri() . $fallback)
+    );
+}
 $product_title = $product->get_name();
 $product_price = $product->get_price_html();
 $product_categories = wc_get_product_category_list($product_id, ', ', '<span class="mf-product-card__category">', '</span>');
@@ -35,12 +94,15 @@ $wishlist = isset($_COOKIE['moda_feminina_wishlist']) ? explode(',', sanitize_te
 $in_wishlist = in_array((string)$product_id, $wishlist);
 ?>
 
-<li class="mf-product-card product type-product mf-animate-on-scroll" data-id="<?php echo esc_attr($product_id); ?>" data-container="product-card">
+<li class="mf-product-card product type-product mf-animate-on-scroll<?php echo $hover_image ? ' has-hover-image' : ''; ?>" data-id="<?php echo esc_attr($product_id); ?>" data-container="product-card">
     <article class="mf-product-card-inner">
         <a href="<?php echo esc_url($product_url); ?>" class="mf-product-card__link">
                     <!-- Product Image -->
                     <div class="mf-product-card__image-wrapper">
                 <?php echo $product_image; ?>
+                <?php if ($hover_image) : ?>
+                    <?php echo $hover_image; ?>
+                <?php endif; ?>
                 
                 <!-- Badges -->
                 <div class="mf-product-card__badges">

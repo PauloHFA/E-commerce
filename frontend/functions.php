@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MODA_FEMININA_VERSION', '1.0.0');
+define('MODA_FEMININA_VERSION', '1.1.0');
 
 function moda_feminina_enqueue_assets() {
     wp_enqueue_style(
