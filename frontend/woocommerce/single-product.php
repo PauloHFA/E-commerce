@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 // Ensure global $product is set for WooCommerce templates
 global $product;
 if (!is_a($product, 'WC_Product')) {
-    $product = wc_get_product(get_the_ID());
+    $product = wc_get_product(get_queried_object_id());
 }
 
 get_header();
@@ -326,9 +326,12 @@ get_header();
                         <span class="mf-sticky-atc-title"><?php the_title(); ?></span>
                         <span class="mf-sticky-atc-price"><?php echo $product->get_price_html(); ?></span>
                     </div>
-                    <button type="button" class="mf-btn mf-btn--primary mf-sticky-atc-btn" data-product-id="<?php echo esc_attr($product->get_id()); ?>">
-                        Adicionar
-                    </button>
+                    <button type="button" class="mf-btn mf-btn--primary mf-sticky-atc-btn" 
+                                            data-product-id="<?php echo esc_attr($product->get_id()); ?>"
+                                            data-product-type="<?php echo esc_attr($product->get_type()); ?>"
+                                            data-variation-id="">
+                                            Adicionar
+                                        </button>
                 </div>
             </div>
         </div>

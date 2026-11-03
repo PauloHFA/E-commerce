@@ -1,8 +1,9 @@
 /**
- * JavaScript Custom - Moda Feminina E-commerce
+ * JavaScript Custom - Moda Feminina E-commerce Premium
  * 
- * SPA interactions: mini-cart drawer, AJAX add to cart, filtering,
- * product gallery, sticky add-to-cart, infinite scroll, animations.
+ * Premium interactions: announcement bar, header scroll, search, mobile menu,
+ * mini-cart drawer, AJAX add to cart, filtering, product gallery, 
+ * sticky add-to-cart, infinite scroll, scroll animations, toast notifications.
  */
 
 (function($) {
@@ -22,9 +23,13 @@
     initModaFeminina($);
     
     function initModaFeminina($) {
-        console.log('%c🎀 Moda Feminina Custom JS carregado com sucesso!', 'color:#c48cb3; font-weight:bold');
+        console.log('%c🎀 Moda Feminina Premium JS carregado com sucesso!', 'color:#1a1a1a; font-weight:bold');
         
         // Initialize all components
+        initAnnouncementBar($);
+        initHeaderScroll($);
+        initSearch($);
+        initMobileMenu($);
         initMiniCartDrawer($);
         initAjaxAddToCart($);
         initFilterSidebar($);
@@ -37,6 +42,8 @@
         initLocalStorageFeatures($);
         initToastNotifications($);
         initLoadingSkeletons($);
+        initHeroScroll($);
+        initQuantityButtons($);
         
         // Global state
         window.ModaFeminina = {
@@ -59,746 +66,766 @@
         });
     }
     
+    // Announcement Bar
+    function initAnnouncementBar($) {
+        const $bar = $('#mf-announcement-bar');
+        const $dismiss = $bar.find('.mf-announcement-bar__dismiss');
+        
+        // Check if dismissed in session storage
+        if (sessionStorage.getItem('mf_announcement_dismissed')) {
+            $bar.addClass('is-hidden');
+            adjustHeaderPosition();
+        }
+        
+        $dismiss.on('click', function() {
+            $bar.addClass('is-hidden');
+            sessionStorage.setItem('mf_announcement_dismissed', 'true');
+            adjustHeaderPosition();
+        });
+    }
+    
+    function adjustHeaderPosition() {
+        const $header = $('#mf-header');
+        const $nav = $('#mf-nav');
+        const announcementHeight = $('#mf-announcement-bar').hasClass('is-hidden') ? 0 : 40;
+        
+        $header.css('top', announcementHeight + 'px');
+        $nav.css('top', (announcementHeight + 88) + 'px');
+    }
+    
+    // Header Scroll Effect
+    function initHeaderScroll($) {
+        const $header = $('#mf-header');
+        const $nav = $('#mf-nav');
+        let lastScroll = 0;
+        let ticking = false;
+        
+        function onScroll() {
+            const scrollY = window.scrollY;
+            const announcementHeight = $('#mf-announcement-bar').hasClass('is-hidden') ? 0 : 40;
+            
+            if (scrollY > announcementHeight + 50) {
+                $header.addClass('is-scrolled');
+            } else {
+                $header.removeClass('is-scrolled');
+            }
+            
+            lastScroll = scrollY;
+            ticking = false;
+        }
+        
+        $(window).on('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(onScroll);
+                ticking = true;
+            }
+        });
+    }
+    
+    // Search Enhancement
+    function initSearch($) {
+        const $search = $('.mf-search');
+        const $input = $search.find('.mf-search__input');
+        const $form = $search.find('.mf-search__form');
+        
+        // Focus handling
+        $input.on('focus', function() {
+            $search.addClass('is-focused');
+        });
+        
+        $input.on('blur', function() {
+            $search.removeClass('is-focused');
+        });
+        
+        // Live search suggestions (placeholder for future enhancement)
+        let searchTimeout;
+        $input.on('input', function() {
+            clearTimeout(searchTimeout);
+            const query = $(this).val().trim();
+            
+            if (query.length >= 2) {
+                searchTimeout = setTimeout(function() {
+                    // Future: implement AJAX search suggestions
+                    console.log('Search query:', query);
+                }, 300);
+            }
+        });
+    }
+    
+    // Mobile Menu
+    function initMobileMenu($) {
+        const $toggle = $('#mf-mobile-menu-toggle');
+        const $nav = $('#mf-nav');
+        const $navList = $nav.find('.mf-nav__list');
+        
+        $toggle.on('click', function() {
+            const isOpen = $nav.hasClass('is-open');
+            
+            if (isOpen) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        });
+        
+        // Close on link click
+        $navList.on('click', '.mf-nav__link', function() {
+            closeMobileMenu();
+        });
+        
+        // Close on escape
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape' && $nav.hasClass('is-open')) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Close on overlay click
+        $nav.on('click', function(e) {
+            if (e.target === this) {
+                closeMobileMenu();
+            }
+        });
+        
+        function openMobileMenu() {
+            $nav.addClass('is-open');
+            $toggle.attr('aria-expanded', 'true');
+            $('body').addClass('mf-nav-open');
+            $toggle.find('svg').attr('d', 'M18 6L6 18M6 6l12 12');
+        }
+        
+        function closeMobileMenu() {
+            $nav.removeClass('is-open');
+            $toggle.attr('aria-expanded', 'false');
+            $('body').removeClass('mf-nav-open');
+            $toggle.find('svg').attr('d', 'M3 6h18M3 12h18M3 18h18');
+        }
+    }
+    
     // Mini Cart Drawer
     function initMiniCartDrawer($) {
-        const $drawer = $('.mf-mini-cart-drawer');
-        const $overlay = $('.mf-cart-overlay');
-        const $toggle = $('.mf-mini-cart-toggle');
-        const $close = $('.mf-cart-close');
+        const $drawer = $('#mf-mini-cart-drawer');
+        const $overlay = $('#mf-cart-overlay');
+        const $toggle = $('#mf-mini-cart-toggle');
+        const $close = $drawer.find('[data-cart-close]');
         
         // Toggle drawer
         $toggle.on('click', function(e) {
             e.preventDefault();
-            toggleCartDrawer(true, $);
+            toggleCartDrawer(true);
         });
         
         $close.add($overlay).on('click', function() {
-            toggleCartDrawer(false, $);
+            toggleCartDrawer(false);
         });
         
         // Close on escape
-    $(document).on('keydown', function(e) {
-        if (e.key === 'Escape' && $drawer.hasClass('is-open')) {
-            toggleCartDrawer(false, $);
-        }
-    });
-    
-    function toggleCartDrawer(open, $) {
-        const isOpening = typeof open === 'undefined' ? !$drawer.hasClass('is-open') : open;
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape' && $drawer.hasClass('is-open')) {
+                toggleCartDrawer(false);
+            }
+        });
         
-        if (isOpening) {
-            $drawer.addClass('is-open');
-            $overlay.show();
-            $('body').addClass('mf-cart-open');
-            $toggle.attr('aria-expanded', 'true');
-        } else {
-            $drawer.removeClass('is-open');
-            $overlay.hide();
-            $('body').removeClass('mf-cart-open');
-            $toggle.attr('aria-expanded', 'false');
+        function toggleCartDrawer(open) {
+            const isOpening = typeof open === 'undefined' ? !$drawer.hasClass('is-open') : open;
+            
+            if (isOpening) {
+                $drawer.addClass('is-open').attr('aria-hidden', 'false');
+                $overlay.addClass('is-visible');
+                $toggle.attr('aria-expanded', 'true');
+                $('body').addClass('mf-cart-open');
+                // Focus trap
+                $drawer.find('button, a').first().focus();
+            } else {
+                $drawer.removeClass('is-open').attr('aria-hidden', 'true');
+                $overlay.removeClass('is-visible');
+                $toggle.attr('aria-expanded', 'false');
+                $('body').removeClass('mf-cart-open');
+            }
         }
     }
     
     // Update cart content
     function updateMiniCart($) {
-        // This would fetch cart fragments via AJAX
-        // For now, simulate with localStorage
-        const cart = JSON.parse(localStorage.getItem('moda_feminina_cart') || '{}');
-        const $itemsContainer = $('.mf-cart-items');
-        const $totalElement = $('.mf-cart-total');
-        
-        if (cart.items && cart.items.length > 0) {
-            $itemsContainer.empty();
-            cart.items.forEach(item => {
-                $itemsContainer.append(`
-                    <div class="mf-cart-item" data-id="${item.id}">
-                        <img src="${item.image}" alt="${item.name}" class="mf-cart-item-image">
-                        <div class="mf-cart-item-info">
-                            <h4 class="mf-cart-item-name">${item.name}</h4>
-                            <p class="mf-cart-item-details">Tamanho: ${item.size} | Cor: ${item.color}</p>
-                            <div class="mf-cart-item-price">${item.price}</div>
-                        </div>
-                        <div class="mf-cart-item-quantity">
-                            <button class="mf-qty-btn mf-qty-btn--minus" data-id="${item.id}" aria-label="Diminuir quantidade">−</button>
-                            <input type="number" value="${item.quantity}" min="1" class="mf-qty-input" data-id="${item.id}">
-                            <button class="mf-qty-btn mf-qty-btn--plus" data-id="${item.id}" aria-label="Aumentar quantidade">+</button>
-                        </div>
-                        <button class="mf-cart-item-remove" data-id="${item.id}" aria-label="Remover item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                        </button>
-                    </div>
-                `);
-            });
-            
-            $totalElement.text(cart.total || '0.00');
-            $itemsContainer.removeAttr('hidden');
-            $('.mf-cart-empty').hide();
-        } else {
-            $itemsContainer.empty().attr('hidden', true);
-            $('.mf-cart-empty').show();
-        }
-    }
-}
-
-// AJAX Add to Cart
-function initAjaxAddToCart($) {
-    $(document).on('click', '.mf-add-to-cart, .mf-sticky-atc-btn, .mf-quick-add', function(e) {
-        e.preventDefault();
-        
-        const $button = $(this);
-        const productId = $button.data('product-id');
-        const productType = $button.data('product-type');
-        const variationId = $button.data('variation-id');
-        const quantity = parseInt($button.closest('.mf-product-actions').find('.mf-qty-input').val()) || 1;
-        
-        // For variable products, check if variation is selected
-        if (productType === 'variable' && !variationId) {
-            showToast('Por favor, selecione as opções do produto', 'warning');
-            return;
-        }
-        
-        // Show loading state
-        $button.addClass('is-loading');
-        $button.find('.mf-btn-text').hide();
-        $button.find('.mf-btn-loader').show();
-        
-        // Prepare AJAX data
-        const ajaxData = {
-            action: 'moda_feminina_add_to_cart',
-            product_id: variationId || productId,
-            quantity: quantity,
-            _wpnonce: wc_add_to_cart_params.add_to_cart_nonce
-        };
-        
-        // For variable products, include variation_id
-        if (variationId) {
-            ajaxData.variation_id = variationId;
-        }
-        
-        // AJAX request
         $.ajax({
-            url: wc_add_to_cart_params.ajax_url,
+            url: mf_ajax_params.ajax_url,
             type: 'POST',
-            data: ajaxData,
+            data: {
+                action: 'woocommerce_get_refreshed_fragments',
+                _wpnonce: mf_ajax_params.add_to_cart_nonce
+            },
             success: function(response) {
-                if (response.success) {
-                    // Update fragments
+                if (response && response.fragments) {
                     $.each(response.fragments, function(key, value) {
                         $(key).replaceWith(value);
                     });
                     
-                    // Update local cart
-                    updateLocalCart(productId, quantity, response.data);
-                    
-                    // Show toast
-                    showToast('Produto adicionado ao carrinho!', 'success');
-                } else {
-                    showToast(response.data.message || 'Erro ao adicionar ao carrinho', 'error');
+                    if (response.cart_hash) {
+                        // Cart hash updated
+                    }
                 }
             },
             error: function() {
-                showToast('Erro ao adicionar ao carrinho. Tente novamente.', 'error');
-            },
-            complete: function() {
-                $button.removeClass('is-loading');
-                $button.find('.mf-btn-text').show();
-                $button.find('.mf-btn-loader').hide();
+                console.warn('Could not refresh cart fragments');
             }
         });
-    });
-    
-    // Update local cart storage
-    function updateLocalCart(productId, quantity, productData) {
-        let cart = JSON.parse(localStorage.getItem('moda_feminina_cart') || '{}');
-        
-        if (!cart.items) cart.items = [];
-        
-        const existingItem = cart.items.find(item => item.id === productId);
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            cart.items.push({
-                id: productId,
-                name: productData.name || 'Produto',
-                price: productData.price || '0.00',
-                image: productData.image || '',
-                size: productData.size || 'M',
-                color: productData.color || 'Padrão',
-                quantity: quantity
-            });
-        }
-        
-        cart.total = cart.items.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
-        localStorage.setItem('moda_feminina_cart', JSON.stringify(cart));
-    }
-}
-
-// Filter Sidebar
-function initFilterSidebar($) {
-    const $sidebar = $('#mf-filter-sidebar');
-    const $toggle = $('.mf-filter-toggle');
-    const $close = $('.mf-filter-close');
-    const $overlay = $('.mf-filter-overlay');
-    const $applyBtn = $('[data-filter-apply]');
-    
-    // Toggle sidebar
-    $toggle.add($close).add($overlay).on('click', function() {
-        $sidebar.toggleClass('is-open');
-        $overlay.toggle();
-        $toggle.attr('aria-expanded', $sidebar.hasClass('is-open'));
-    });
-    
-    // Apply filters
-    $applyBtn.on('click', function() {
-        const filters = {};
-        
-        // Collect checkbox values
-        $sidebar.find('input[type="checkbox"]:checked').each(function() {
-            const name = $(this).attr('name');
-            const value = $(this).val();
-            if (!filters[name]) filters[name] = [];
-            filters[name].push(value);
-        });
-        
-        // Collect price range
-        const minPrice = $('#min-price').val();
-        const maxPrice = $('#max-price').val();
-        if (minPrice) filters.min_price = minPrice;
-        if (maxPrice) filters.max_price = maxPrice;
-        
-        // Update URL and reload
-        updateFiltersURL(filters);
-    });
-    
-    // Price slider
-    if ($('.mf-price-slider').length) {
-        initPriceSlider($);
     }
     
-    function initPriceSlider($) {
-        const $slider = $('.mf-price-slider');
-        const $minInput = $('#min-price');
-        const $maxInput = $('#max-price');
-        
-        $slider.slider({
-            range: true,
-            min: 0,
-            max: 1000,
-            values: [$minInput.val() || 0, $maxInput.val() || 1000],
-            slide: function(event, ui) {
-                $minInput.val(ui.values[0]);
-                $maxInput.val(ui.values[1]);
+    // AJAX Add to Cart
+    function initAjaxAddToCart($) {
+        $(document).on('click', '.mf-add-to-cart, .mf-sticky-atc-btn, .mf-quick-add, .mf-product-card__quick-btn--quick-add, .mf-product-card__btn--primary', function(e) {
+            e.preventDefault();
+            
+            const $button = $(this);
+            const productId = $button.data('product-id');
+            const productType = $button.data('product-type');
+            const variationId = $button.data('variation-id');
+            
+            // Get quantity from various possible locations
+            let quantity = 1;
+            const $qtyInput = $button.closest('.mf-product-actions, .mf-sticky-atc, .mf-product-card').find('.mf-qty-input, .qty');
+            if ($qtyInput.length) {
+                quantity = parseInt($qtyInput.val()) || 1;
             }
-        });
-        
-        $minInput.add($maxInput).on('change', function() {
-            const min = parseInt($minInput.val()) || 0;
-            const max = parseInt($maxInput.val()) || 1000;
-            $slider.slider('values', [min, max]);
-        });
-    }
-    
-    function updateFiltersURL(filters) {
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        // Clear existing filter params
-        urlParams.delete('filter_tamanho');
-        urlParams.delete('filter_cor');
-        urlParams.delete('min_price');
-        urlParams.delete('max_price');
-        urlParams.delete('product_cat');
-        
-        // Add new filters
-        Object.keys(filters).forEach(key => {
-            if (Array.isArray(filters[key])) {
-                filters[key].forEach(value => {
-                    urlParams.append(key, value);
-                });
-            } else {
-                urlParams.set(key, filters[key]);
+            
+            // For variable products, check if variation is selected
+            if (productType === 'variable' && !variationId) {
+                showToast('Por favor, selecione as opções do produto', 'warning');
+                return;
             }
-        });
-        
-        // Navigate to new URL
-        window.location.search = urlParams.toString();
-    }
-}
-
-// Color Swatches & Size Selector - Connect to WooCommerce Variations Form
-function initColorSwatches($) {
-    $(document).on('change', '.mf-swatch-input', function() {
-        const $swatch = $(this).closest('.mf-swatch-label');
-        const value = $(this).val();
-        const attributeName = $(this).attr('name'); // e.g., attribute_pa_cor
-        
-        // Update active state
-        $swatch.siblings().removeClass('is-selected');
-        $swatch.addClass('is-selected');
-        
-        // Update product image if available
-        const newImage = $swatch.data('image');
-        if (newImage) {
-            $('.mf-gallery-main img').attr('src', newImage);
-        }
-        
-        // Update price if needed
-        const price = $swatch.data('price');
-        if (price) {
-            $('.mf-product-price').text(price);
-        }
-        
-        // Trigger WooCommerce variations form
-        triggerVariationChange(attributeName, value, $);
-    });
-    
-    // Size selector radio buttons
-    $(document).on('change', '.mf-size-selector input[type="radio"]', function() {
-        const $radio = $(this);
-        const value = $radio.val();
-        const attributeName = $radio.attr('name'); // e.g., attribute_pa_tamanho
-        
-        // Update active state
-        $radio.closest('.mf-size-selector').find('label').removeClass('is-selected');
-        $radio.closest('label').addClass('is-selected');
-        
-        // Trigger WooCommerce variations form
-        triggerVariationChange(attributeName, value, $);
-    });
-    
-    function triggerVariationChange(attributeName, value, $) {
-        // Find the WooCommerce variations form
-        const $form = $('.variations_form');
-        if ($form.length) {
-            // Find the hidden select in the variations table
-            const $select = $form.find('select[name="' + attributeName + '"]');
-            if ($select.length) {
-                // Set the value and trigger change
-                $select.val(value).trigger('change');
+            
+            // Show loading state
+            $button.addClass('is-loading');
+            $button.find('.mf-btn-text').hide();
+            $button.find('.mf-btn-loader').show();
+            
+            // Prepare AJAX data
+            const ajaxData = {
+                action: 'moda_feminina_add_to_cart',
+                product_id: productId,
+                quantity: quantity,
+                _wpnonce: mf_ajax_params.add_to_cart_nonce
+            };
+            
+            // For variable products, include variation_id and attributes
+            if (variationId) {
+                ajaxData.variation_id = variationId;
                 
-                // Also trigger on the form for good measure
-                $form.trigger('woocommerce_variation_select_change');
-                $form.trigger('check_variations', ['', false]);
+                const $form = $button.closest('.variations_form');
+                if ($form.length) {
+                    const variation = {};
+                    $form.find('select[name^="attribute_"]').each(function() {
+                        const name = $(this).attr('name');
+                        const val = $(this).val();
+                        if (val) {
+                            variation[name] = val;
+                        }
+                    });
+                    $form.find('input[name^="attribute_"]:checked').each(function() {
+                        const name = $(this).attr('name');
+                        const val = $(this).val();
+                        if (val) {
+                            variation[name] = val;
+                        }
+                    });
+                    if (Object.keys(variation).length > 0) {
+                        ajaxData.variation = variation;
+                    }
+                }
             }
-        }
-    }
-    
-    // Listen for WooCommerce variation found event to update UI
-    $(document).on('found_variation', '.variations_form', function(event, variation) {
-        // Update price display
-        if (variation.price_html) {
-            $('.mf-product-price').html(variation.price_html);
-        }
-        
-        // Update availability
-        if (variation.availability_html) {
-            $('.mf-product-availability').html(variation.availability_html);
-        }
-        
-        // Update SKU
-        if (variation.sku) {
-            $('.mf-product-sku').text(variation.sku);
-        }
-        
-        // Update weight/dimensions if displayed
-        if (variation.weight_html) {
-            $('.mf-product-weight').html(variation.weight_html);
-        }
-        
-        // Update variation ID for add to cart
-        $('.mf-add-to-cart, .mf-sticky-atc-btn').attr('data-variation-id', variation.variation_id);
-        
-        // Update gallery image if variation has one
-        if (variation.image && variation.image.src) {
-            $('.mf-gallery-main img').attr('src', variation.image.src);
-        }
-        
-        // Enable/disable add to cart button
-        const $atcButtons = $('.mf-add-to-cart, .mf-sticky-atc-btn');
-        if (variation.is_purchasable && variation.is_in_stock) {
-            $atcButtons.removeAttr('disabled').removeClass('disabled');
-        } else {
-            $atcButtons.attr('disabled', 'disabled').addClass('disabled');
-        }
-    });
-    
-    // Listen for reset variation event
-    $(document).on('reset_data', '.variations_form', function() {
-        // Reset price to original
-        const $form = $(this);
-        const $price = $form.find('.mf-product-price');
-        if ($price.data('original-price')) {
-            $price.html($price.data('original-price'));
-        }
-        
-        // Reset availability
-        const $availability = $('.mf-product-availability');
-        if ($availability.data('original-availability')) {
-            $availability.html($availability.data('original-availability'));
-        }
-        
-        // Reset SKU
-        const $sku = $('.mf-product-sku');
-        if ($sku.data('original-sku')) {
-            $sku.text($sku.data('original-sku'));
-        }
-        
-        // Reset variation ID
-        $('.mf-add-to-cart, .mf-sticky-atc-btn').removeAttr('data-variation-id');
-        
-        // Reset gallery to first image
-        const $firstThumb = $('.mf-gallery-thumbs .mf-thumb').first();
-        if ($firstThumb.length) {
-            $('.mf-gallery-main img').attr('src', $firstThumb.attr('src'));
-        }
-        
-        // Enable add to cart buttons
-        $('.mf-add-to-cart, .mf-sticky-atc-btn').removeAttr('disabled').removeClass('disabled');
-    });
-}
-
-// Product Gallery
-function initProductGallery() {
-    const $mainImage = $('.mf-gallery-main img');
-    const $thumbs = $('.mf-gallery-thumbs .mf-thumb');
-    
-    // Thumbnail click
-    $thumbs.on('click', function(e) {
-        e.preventDefault();
-        const newSrc = $(this).attr('src');
-        $mainImage.attr('src', newSrc);
-        
-        // Update active thumb
-        $thumbs.removeClass('is-active');
-        $(this).addClass('is-active');
-    });
-    
-    // Zoom functionality
-    $mainImage.on('click', function() {
-        // Open lightbox
-        openLightbox($(this).attr('src'));
-    });
-    
-    // Keyboard navigation
-    $(document).on('keydown', function(e) {
-        if ($('.mf-lightbox').is(':visible')) {
-            if (e.key === 'ArrowLeft') {
-                navigateLightbox(-1);
-            } else if (e.key === 'ArrowRight') {
-                navigateLightbox(1);
-            }
-        }
-    });
-}
-
-// Sticky Add to Cart
-function initStickyAddToCart() {
-    const $sticky = $('.mf-sticky-atc');
-    const $productInfo = $('.mf-product-info');
-    
-    if ($sticky.length && $productInfo.length) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    $sticky.hide();
-                } else {
-                    $sticky.show();
+            
+            // AJAX request
+            $.ajax({
+                url: mf_ajax_params.ajax_url,
+                type: 'POST',
+                data: ajaxData,
+                success: function(response) {
+                    if (response.success) {
+                        $.each(response.fragments, function(key, value) {
+                            $(key).replaceWith(value);
+                        });
+                        
+                        if (response.cart_count !== undefined) {
+                            $('.mf-header-action__count, .mf-cart-count').text(response.cart_count);
+                        }
+                        
+                        showToast('Produto adicionado ao carrinho!', 'success');
+                        
+                        $(document.body).trigger('added_to_cart', [response.fragments, response.cart_hash, $button]);
+                    } else {
+                        showToast(response.data.message || 'Erro ao adicionar ao carrinho', 'error');
+                    }
+                },
+                error: function() {
+                    showToast('Erro ao adicionar ao carrinho. Tente novamente.', 'error');
+                },
+                complete: function() {
+                    $button.removeClass('is-loading');
+                    $button.find('.mf-btn-text').show();
+                    $button.find('.mf-btn-loader').hide();
                 }
             });
-        }, {
-            threshold: 0,
-            rootMargin: '0px 0px -50% 0px'
-        });
-        
-        observer.observe($productInfo[0]);
-        
-        // Sticky button click
-        $sticky.on('click', '.mf-sticky-atc-btn', function(e) {
-            e.preventDefault();
-            const productId = $(this).data('product-id');
-            $('.mf-add-to-cart[data-product-id="' + productId + '"]').trigger('click');
         });
     }
-}
-
-// Infinite Scroll
-function initInfiniteScroll() {
-    let isLoading = false;
-    const $loadMore = $('.mf-load-more');
-    const $productsGrid = $('.mf-products-grid');
     
-    $(window).on('scroll', function() {
-        if (isLoading) return;
+    // Quantity Buttons
+    function initQuantityButtons($) {
+        // Product page quantity
+        $(document).on('click', '.mf-qty-btn--plus, .mf-qty-btn[data-action="plus"]', function() {
+            const $input = $(this).siblings('.mf-qty-input, .qty');
+            const currentVal = parseInt($input.val()) || 1;
+            const max = parseInt($input.attr('max')) || 99;
+            if (currentVal < max) {
+                $input.val(currentVal + 1).trigger('change');
+            }
+        });
         
-        const scrollTop = $(window).scrollTop();
-        const windowHeight = $(window).height();
-        const documentHeight = $(document).height();
-        const scrollPercentage = (scrollTop + windowHeight) / documentHeight;
+        $(document).on('click', '.mf-qty-btn--minus, .mf-qty-btn[data-action="minus"]', function() {
+            const $input = $(this).siblings('.mf-qty-input, .qty');
+            const currentVal = parseInt($input.val()) || 1;
+            const min = parseInt($input.attr('min')) || 1;
+            if (currentVal > min) {
+                $input.val(currentVal - 1).trigger('change');
+            }
+        });
         
-        if (scrollPercentage > 0.9 && $loadMore.length && !$loadMore.is(':hidden')) {
-            loadMoreProducts();
-        }
-    });
+        // Mini-cart quantity
+        $(document).on('click', '.mf-mini-cart-item .mf-qty-btn[data-action="plus"]', function() {
+            const $input = $(this).siblings('.mf-qty-input');
+            const cartItemKey = $(this).data('cart-item-key');
+            const currentVal = parseInt($input.val()) || 1;
+            const max = parseInt($input.attr('max')) || 99;
+            if (currentVal < max) {
+                $input.val(currentVal + 1).trigger('change');
+                updateCartItemQuantity(cartItemKey, currentVal + 1, $);
+            }
+        });
+        
+        $(document).on('click', '.mf-mini-cart-item .mf-qty-btn[data-action="minus"]', function() {
+            const $input = $(this).siblings('.mf-qty-input');
+            const cartItemKey = $(this).data('cart-item-key');
+            const currentVal = parseInt($input.val()) || 1;
+            const min = parseInt($input.attr('min')) || 1;
+            if (currentVal > min) {
+                $input.val(currentVal - 1).trigger('change');
+                updateCartItemQuantity(cartItemKey, currentVal - 1, $);
+            }
+        });
+        
+        $(document).on('change', '.mf-mini-cart-item .mf-qty-input', function() {
+            const cartItemKey = $(this).data('cart-item-key');
+            const quantity = parseInt($(this).val()) || 1;
+            updateCartItemQuantity(cartItemKey, quantity, $);
+        });
+        
+        // Remove item from mini-cart
+        $(document).on('click', '.mf-mini-cart-item__remove, .mf-cart-item-remove', function() {
+            const cartItemKey = $(this).data('cart-item-key');
+            removeCartItem(cartItemKey, $);
+        });
+    }
     
-    $loadMore.on('click', function() {
-        loadMoreProducts();
-    });
+    function updateCartItemQuantity(cartItemKey, quantity, $) {
+        $.ajax({
+            url: mf_ajax_params.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'woocommerce_update_cart_item',
+                cart_item_key: cartItemKey,
+                quantity: quantity,
+                _wpnonce: mf_ajax_params.add_to_cart_nonce
+            },
+            success: function(response) {
+                if (response.success) {
+                    $.each(response.fragments, function(key, value) {
+                        $(key).replaceWith(value);
+                    });
+                    if (response.cart_count !== undefined) {
+                        $('.mf-header-action__count, .mf-cart-count').text(response.cart_count);
+                    }
+                }
+            }
+        });
+    }
     
-    function loadMoreProducts() {
-        if (isLoading) return;
+    function removeCartItem(cartItemKey, $) {
+        $.ajax({
+            url: mf_ajax_params.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'woocommerce_remove_cart_item',
+                cart_item_key: cartItemKey,
+                _wpnonce: mf_ajax_params.add_to_cart_nonce
+            },
+            success: function(response) {
+                if (response.success) {
+                    $.each(response.fragments, function(key, value) {
+                        $(key).replaceWith(value);
+                    });
+                    if (response.cart_count !== undefined) {
+                        $('.mf-header-action__count, .mf-cart-count').text(response.cart_count);
+                    }
+                    showToast('Produto removido do carrinho', 'info');
+                }
+            }
+        });
+    }
+    
+    // Filter Sidebar
+    function initFilterSidebar($) {
+        const $sidebar = $('.mf-filter-sidebar');
+        const $toggle = $('.mf-filter-toggle');
+        const $close = $sidebar.find('.mf-filter-sidebar__close');
+        const $overlay = $('.mf-filter-overlay');
         
-        isLoading = true;
-        $loadMore.addClass('is-loading');
-        $loadMore.find('.mf-btn-text').hide();
-        $loadMore.find('.mf-btn-loader').show();
+        $toggle.on('click', function() {
+            $sidebar.addClass('is-open');
+            $overlay.addClass('is-visible');
+            $('body').addClass('mf-filter-open');
+        });
         
-        const currentPage = getQueryParam('paged') || 1;
-        const maxPage = getQueryParam('max_page') || 2;
+        $close.add($overlay).on('click', function() {
+            $sidebar.removeClass('is-open');
+            $overlay.removeClass('is-visible');
+            $('body').removeClass('mf-filter-open');
+        });
         
-        if (currentPage >= maxPage) {
-            $loadMore.hide();
-            isLoading = false;
-            $loadMore.removeClass('is-loading');
-            $loadMore.find('.mf-btn-text').show();
-            $loadMore.find('.mf-btn-loader').hide();
-            return;
-        }
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape' && $sidebar.hasClass('is-open')) {
+                $sidebar.removeClass('is-open');
+                $overlay.removeClass('is-visible');
+                $('body').removeClass('mf-filter-open');
+            }
+        });
+        
+        // Filter attribute buttons
+        $(document).on('click', '.mf-filter-attr', function() {
+            $(this).toggleClass('is-active');
+            // Future: trigger AJAX filter
+        });
+        
+        // Color swatches in filter
+        $(document).on('click', '.mf-filter-color', function() {
+            $(this).toggleClass('is-active').siblings().removeClass('is-active');
+        });
+    }
+    
+    // Color Swatches (Product Page)
+    function initColorSwatches($) {
+        $(document).on('click', '.mf-swatch-label', function() {
+            const $label = $(this);
+            const $input = $label.find('.mf-swatch-input');
+            const $fieldset = $label.closest('.mf-attribute-fieldset');
+            
+            $fieldset.find('.mf-swatch-label').removeClass('is-selected');
+            $label.addClass('is-selected');
+            $input.prop('checked', true).trigger('change');
+        });
+        
+        // Size selector
+        $(document).on('click', '.mf-size-label', function() {
+            if ($(this).hasClass('mf-size--unavailable')) return;
+            
+            const $label = $(this);
+            const $input = $label.find('.mf-size-input');
+            const $group = $label.closest('.mf-size-group');
+            
+            $group.find('.mf-size-label').removeClass('is-selected');
+            $label.addClass('is-selected');
+            $input.prop('checked', true).trigger('change');
+        });
+    }
+    
+    // Product Gallery
+    function initProductGallery($) {
+        const $main = $('.mf-gallery-main img');
+        const $thumbs = $('.mf-thumb');
+        
+        $thumbs.on('click', function() {
+            const $thumb = $(this);
+            const newSrc = $thumb.data('large-image') || $thumb.attr('src').replace('-80x80', '');
+            
+            $thumbs.removeClass('is-active');
+            $thumb.addClass('is-active');
+            
+            $main.fadeOut(200, function() {
+                $(this).attr('src', newSrc).fadeIn(200);
+            });
+        });
+        
+        // Keyboard navigation
+        $thumbs.on('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    }
+    
+    // Sticky Add to Cart
+    function initStickyAddToCart($) {
+        const $sticky = $('.mf-sticky-atc');
+        const $productInfo = $('.mf-product-info');
+        
+        if (!$sticky.length || !$productInfo.length) return;
+        
+        const productInfoBottom = $productInfo.offset().top + $productInfo.outerHeight();
+        
+        $(window).on('scroll', function() {
+            if (window.scrollY > productInfoBottom - 100) {
+                $sticky.addClass('is-visible');
+            } else {
+                $sticky.removeClass('is-visible');
+            }
+        });
+    }
+    
+    // Infinite Scroll
+    function initInfiniteScroll($) {
+        const $grid = $('.mf-products-grid[data-infinite-scroll]');
+        let page = 2;
+        let loading = false;
+        let maxPages = parseInt($grid.data('max-pages')) || 99;
+        
+        if (!$grid.length) return;
+        
+        $(window).on('scroll', function() {
+            if (loading || page > maxPages) return;
+            
+            const scrollTop = $(window).scrollTop();
+            const windowHeight = $(window).height();
+            const gridOffset = $grid.offset().top + $grid.outerHeight();
+            
+            if (scrollTop + windowHeight > gridOffset - 300) {
+                loading = true;
+                loadMoreProducts($, $grid, page);
+                page++;
+            }
+        });
+    }
+    
+    function loadMoreProducts($, $grid, page) {
+        const $loader = $('<div class="mf-skeleton mf-skeleton--button"></div>').appendTo($grid);
         
         $.ajax({
-            url: wc_add_to_cart_params.ajax_url,
+            url: mf_ajax_params.ajax_url,
             type: 'POST',
             data: {
                 action: 'moda_feminina_load_more_products',
-                paged: currentPage + 1,
-                _wpnonce: wc_add_to_cart_params.load_more_nonce
+                page: page,
+                _wpnonce: mf_ajax_params.add_to_cart_nonce
             },
             success: function(response) {
-                if (response.success && response.data.html) {
-                    $productsGrid.append(response.data.html);
-                    history.replaceState({}, '', response.data.permalink);
+                $loader.remove();
+                
+                if (response.success && response.html) {
+                    $grid.append(response.html);
+                    // Re-initialize animations for new items
+                    initIntersectionObserver($);
                 }
+                
+                loading = false;
             },
             error: function() {
-                showToast('Erro ao carregar mais produtos', 'error');
-            },
-            complete: function() {
-                isLoading = false;
-                $loadMore.removeClass('is-loading');
-                $loadMore.find('.mf-btn-text').show();
-                $loadMore.find('.mf-btn-loader').hide();
+                $loader.remove();
+                loading = false;
             }
         });
     }
     
-    function getQueryParam(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
+    // Smooth Scroll
+    function initSmoothScroll($) {
+        $('a[href^="#"]').on('click', function(e) {
+            const target = $(this).attr('href');
+            if (target === '#') return;
+            
+            const $target = $(target);
+            if ($target.length) {
+                e.preventDefault();
+                const headerHeight = $('#mf-header').outerHeight() + $('#mf-nav').outerHeight();
+                const targetPosition = $target.offset().top - headerHeight - 20;
+                
+                $('html, body').animate({
+                    scrollTop: targetPosition
+                }, 600, 'swing');
+            }
+        });
     }
-}
-
-// Smooth Scroll
-function initSmoothScroll() {
-    $('a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        const target = $($(this).attr('href'));
-        if (target.length) {
-            $('html, body').stop().animate({
-                scrollTop: target.offset().top - 100
-            }, 800, 'easeInOutCubic');
+    
+    // Intersection Observer for Scroll Animations
+    function initIntersectionObserver($) {
+        if (!('IntersectionObserver' in window)) {
+            // Fallback: show all immediately
+            $('.mf-animate-on-scroll').addClass('is-visible');
+            return;
         }
-    });
-}
-
-// Intersection Observer Animations
-function initIntersectionObserver() {
-    if ('IntersectionObserver' in window) {
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
         
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
-                    const $element = $(entry.target);
-                    $element.addClass('is-visible');
-                    
-                    // Stagger animations
-                    if ($element.hasClass('mf-product-card')) {
-                        const index = $element.index();
-                        $element.css('animation-delay', (index * 0.1) + 's');
-                    }
-                    
+                    entry.target.classList.add('is-visible');
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, {
+            rootMargin: '0px 0px -50px 0px',
+            threshold: 0.1
+        });
         
         $('.mf-animate-on-scroll').each(function() {
             observer.observe(this);
         });
     }
-}
-
-// Local Storage Features
-function initLocalStorageFeatures() {
-    // Recently viewed products
-    $(document).on('added_to_cart', function(event, fragments, total, $button) {
-        const productId = $button.data('product-id');
-        addToRecentlyViewed(productId);
-    });
     
-    // Wishlist functionality
-    $(document).on('click', '.mf-wishlist-btn', function() {
-        const $button = $(this);
-        const productId = $button.data('product-id');
+    // LocalStorage Features
+    function initLocalStorageFeatures($) {
+        // Recently viewed products
+        const viewed = JSON.parse(localStorage.getItem('mf_recently_viewed') || '[]');
+        window.ModaFeminina.recentlyViewed = viewed;
         
-        toggleWishlist(productId, $button);
-    });
-    
-    // Load wishlist from localStorage
-    const wishlist = JSON.parse(localStorage.getItem('moda_feminina_wishlist') || '[]');
-    wishlist.forEach(productId => {
-        $(`.mf-wishlist-btn[data-product-id="${productId}"]`).addClass('is-in-wishlist');
-    });
-}
-
-function addToRecentlyViewed(productId) {
-    let recentlyViewed = JSON.parse(localStorage.getItem('moda_feminina_recently_viewed') || '[]');
-    
-    // Remove if already exists
-    recentlyViewed = recentlyViewed.filter(id => id !== productId);
-    
-    // Add to beginning
-    recentlyViewed.unshift(productId);
-    
-    // Keep only last 10
-    recentlyViewed = recentlyViewed.slice(0, 10);
-    
-    localStorage.setItem('moda_feminina_recently_viewed', JSON.stringify(recentlyViewed));
-    updateRecentlyViewedCarousel();
-}
-
-function toggleWishlist(productId, $button) {
-    let wishlist = JSON.parse(localStorage.getItem('moda_feminina_wishlist') || '[]');
-    
-    const index = wishlist.indexOf(productId);
-    if (index > -1) {
-        wishlist.splice(index, 1);
-        $button.removeClass('is-in-wishlist');
-        showToast('Removido da lista de desejos', 'info');
-    } else {
-        wishlist.push(productId);
-        $button.addClass('is-in-wishlist');
-        showToast('Adicionado à lista de desejos', 'success');
+        // Wishlist
+        const wishlist = JSON.parse(localStorage.getItem('mf_wishlist') || '[]');
+        window.ModaFeminina.wishlist = wishlist;
+        updateWishlistUI();
     }
     
-    localStorage.setItem('moda_feminina_wishlist', JSON.stringify(wishlist));
-}
-
-function updateRecentlyViewedCarousel() {
-    const recentlyViewed = JSON.parse(localStorage.getItem('moda_feminina_recently_viewed') || '[]');
-    const $track = $('[data-recently-viewed-track]');
-    
-    if (recentlyViewed.length === 0) {
-        $('.mf-recently-viewed').attr('hidden', true);
-        return;
+    function updateWishlistUI() {
+        const wishlist = window.ModaFeminina.wishlist || [];
+        $('.mf-wishlist-btn, .mf-product-card__quick-btn--wishlist, .mf-header-action--wishlist').each(function() {
+            const $btn = $(this);
+            const productId = $btn.data('product-id');
+            if (productId && wishlist.includes(String(productId))) {
+                $btn.addClass('is-active is-in-wishlist');
+                $btn.find('svg').attr('fill', 'currentColor');
+            }
+        });
     }
     
-    $track.empty();
-    
-    recentlyViewed.forEach(productId => {
-        const $productCard = $(`.product[data-id="${productId}"]`).clone();
-        $productCard.addClass('mf-carousel-item');
-        $track.append($productCard);
-    });
-    
-    $('.mf-recently-viewed').attr('hidden', false);
-}
-
-// Toast Notifications
-function initToastNotifications() {
-    // Create toast container if not exists
-    if (!$('.mf-toast-container').length) {
-        $('body').append('<div class="mf-toast-container" aria-live="polite" aria-atomic="true"></div>');
-    }
-}
-
-function showToast(message, type = 'info') {
-    const $container = $('.mf-toast-container');
-    const $toast = $('<div class="mf-toast mf-toast--' + type + '">');
-    $toast.text(message);
-    $container.append($toast);
-    
-    // Show toast
-    setTimeout(() => {
-        $toast.addClass('is-visible');
-    }, 10);
-    
-    // Remove toast after 3 seconds
-    setTimeout(() => {
-        $toast.removeClass('is-visible');
-        setTimeout(() => {
-            $toast.remove();
-        }, 300);
-    }, 3000);
-}
-
-// Loading Skeletons
-function initLoadingSkeletons() {
-    // Add skeleton loading to product cards
-    if ($('.mf-products-grid').length) {
-        $('.mf-products-grid').addClass('mf-loading');
+    function updateWishlistButton($button) {
+        const productId = $button.data('product-id');
+        if (!productId) return;
         
-        setTimeout(() => {
-            $('.mf-products-grid').removeClass('mf-loading');
-            $('.mf-skeleton').remove();
-        }, 1500);
-    }
-}
-
-// Lightbox functionality
-function openLightbox(imageSrc) {
-    if (!$('.mf-lightbox').length) {
-        $('body').append('<div class="mf-lightbox"><button class="mf-lightbox-close" aria-label="Fechar">×</button><img src="" alt=""><button class="mf-lightbox-nav mf-lightbox-prev">‹</button><button class="mf-lightbox-nav mf-lightbox-next">›</button></div>');
-    }
-    
-    const $lightbox = $('.mf-lightbox');
-    const $img = $lightbox.find('img');
-    
-    $img.attr('src', imageSrc);
-    $lightbox.show();
-    $lightbox.find('.mf-lightbox-close').focus();
-    
-    // Close lightbox
-    $lightbox.on('click', '.mf-lightbox-close, .mf-lightbox', function(e) {
-        if ($(e.target).hasClass('mf-lightbox') || $(e.target).hasClass('mf-lightbox-close')) {
-            $lightbox.hide();
-            $img.attr('src', '');
+        let wishlist = JSON.parse(localStorage.getItem('mf_wishlist') || '[]');
+        const isInWishlist = wishlist.includes(String(productId));
+        
+        if (isInWishlist) {
+            $button.addClass('is-active is-in-wishlist');
+            $button.find('svg').attr('fill', 'currentColor');
+        } else {
+            $button.removeClass('is-active is-in-wishlist');
+            $button.find('svg').attr('fill', 'none');
         }
-    });
-}
-
-function navigateLightbox(direction) {
-    // This would navigate through product images
-    // Implementation depends on current product gallery state
-    console.log('Navigate lightbox:', direction);
-}
-
-// Update wishlist button state
-function updateWishlistButton($button) {
-    const productId = $button.data('product-id');
-    let wishlist = JSON.parse(localStorage.getItem('moda_feminina_wishlist') || '[]');
-    
-    if (wishlist.includes(productId)) {
-        $button.addClass('is-in-wishlist');
-    } else {
-        $button.removeClass('is-in-wishlist');
     }
-}
-
-// Custom animation easing
-$.easing['easeInOutCubic'] = function(x, t, b, c, d) {
-    if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
-    return c / 2 * ((t -= 2) * t * t + 2) + b;
-};
+    
+    // Wishlist toggle
+    $(document).on('click', '.mf-wishlist-btn, .mf-product-card__quick-btn--wishlist, .mf-header-action--wishlist', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const $btn = $(this);
+        const productId = $btn.data('product-id');
+        if (!productId) return;
+        
+        let wishlist = JSON.parse(localStorage.getItem('mf_wishlist') || '[]');
+        const index = wishlist.indexOf(String(productId));
+        
+        if (index > -1) {
+            wishlist.splice(index, 1);
+            $btn.removeClass('is-active is-in-wishlist');
+            $btn.find('svg').attr('fill', 'none');
+            showToast('Removido da lista de desejos', 'info');
+        } else {
+            wishlist.push(String(productId));
+            $btn.addClass('is-active is-in-wishlist');
+            $btn.find('svg').attr('fill', 'currentColor');
+            showToast('Adicionado à lista de desejos', 'success');
+        }
+        
+        localStorage.setItem('mf_wishlist', JSON.stringify(wishlist));
+        window.ModaFeminina.wishlist = wishlist;
+    });
+    
+    // Toast Notifications
+    function initToastNotifications($) {
+        window.showToast = function(message, type = 'info', title = '') {
+            const $container = $('.mf-toast-container');
+            if (!$container.length) {
+                $('body').append('<div class="mf-toast-container"></div>');
+            }
+            
+            const icons = {
+                success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>',
+                error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',
+                warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+                info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>'
+            };
+            
+            const titles = {
+                success: 'Sucesso',
+                error: 'Erro',
+                warning: 'Atenção',
+                info: 'Informação'
+            };
+            
+            const toastTitle = title || titles[type] || '';
+            
+            const $toast = $(`
+                <div class="mf-toast mf-toast--${type}">
+                    <div class="mf-toast__icon">${icons[type]}</div>
+                    <div class="mf-toast__content">
+                        ${toastTitle ? `<div class="mf-toast__title">${toastTitle}</div>` : ''}
+                        <div class="mf-toast__message">${message}</div>
+                    </div>
+                </div>
+            `);
+            
+            $container.append($toast);
+            
+            // Trigger animation
+            requestAnimationFrame(function() {
+                $toast.addClass('is-visible');
+            });
+            
+            // Auto remove
+            setTimeout(function() {
+                $toast.removeClass('is-visible');
+                setTimeout(function() {
+                    $toast.remove();
+                }, 300);
+            }, 5000);
+        };
+    }
+    
+    // Loading Skeletons
+    function initLoadingSkeletons($) {
+        // Show skeletons while content loads
+        $('.mf-products-grid:empty').html(`
+            <div class="mf-skeleton mf-skeleton--circle" style="width: 100%; aspect-ratio: 3/4; border-radius: var(--radius-xl);"></div>
+            <div class="mf-skeleton mf-skeleton--title"></div>
+            <div class="mf-skeleton mf-skeleton--text" style="width: 80%;"></div>
+            <div class="mf-skeleton mf-skeleton--button"></div>
+        `.repeat(4));
+    }
+    
+    // Hero Scroll Button
+    function initHeroScroll($) {
+        $('.mf-hero__scroll').on('click', function() {
+            const $nextSection = $('.mf-hero').next('section');
+            if ($nextSection.length) {
+                const headerHeight = $('#mf-header').outerHeight() + $('#mf-nav').outerHeight();
+                const targetPosition = $nextSection.offset().top - headerHeight - 20;
+                
+                $('html, body').animate({
+                    scrollTop: targetPosition
+                }, 800, 'swing');
+            }
+        });
+    }
+    
+    // Update cart count on page load
+    $(document).ready(function() {
+        // Trigger initial cart fragment refresh
+        $(document.body).trigger('wc_fragments_refreshed');
+    });
+    
+})(jQuery);

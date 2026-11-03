@@ -37,7 +37,7 @@ function moda_feminina_enqueue_assets() {
     );
 
     // Localize script with AJAX parameters
-    wp_localize_script('moda-feminina-script', 'wc_add_to_cart_params', array(
+    wp_localize_script('moda-feminina-script', 'mf_ajax_params', array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'add_to_cart_nonce' => wp_create_nonce('moda_feminina_add_to_cart'),
         'load_more_nonce' => wp_create_nonce('moda_feminina_load_more'),
@@ -170,41 +170,87 @@ function moda_feminina_shop_filters() {
 }
 add_action('woocommerce_before_shop_loop', 'moda_feminina_shop_filters', 15);
 
-// AJAX Add to Cart
+// AJAX Add to Cart — suporta produtos simples e variáveis
 function moda_feminina_ajax_add_to_cart() {
     check_ajax_referer('moda_feminina_add_to_cart', '_wpnonce');
-    
-    $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
-    $quantity = isset($_POST['quantity']) ? absint($_POST['quantity']) : 1;
-    
+
+    $product_id   = isset($_POST['product_id'])   ? absint($_POST['product_id'])   : 0;
+    $variation_id = isset($_POST['variation_id']) ? absint($_POST['variation_id']) : 0;
+    $quantity     = isset($_POST['quantity'])      ? absint($_POST['quantity'])      : 1;
+
+    // Attributes for variable products, e.g. {"attribute_pa_cor":"rosa","attribute_pa_tamanho":"m"}
+    $variation = array();
+    if (!empty($_POST['variation']) && is_array($_POST['variation'])) {
+        foreach ($_POST['variation'] as $key => $val) {
+            $clean_key = sanitize_text_field(wp_unslash($key));
+            $clean_val = sanitize_text_field(wp_unslash($val));
+            if (strpos($clean_key, 'attribute_') === 0) {
+                $variation[$clean_key] = $clean_val;
+            }
+        }
+    }
+
     if (!$product_id) {
-        wp_send_json_error(array('message' => 'Produto inválido'));
+        wp_send_json_error(array('message' => __('Produto inválido.', 'moda-feminina')));
+        return;
     }
-    
+
     $product = wc_get_product($product_id);
-    
     if (!$product || !$product->is_purchasable()) {
-        wp_send_json_error(array('message' => 'Produto não disponível'));
+        wp_send_json_error(array('message' => __('Produto não disponível.', 'moda-feminina')));
+        return;
     }
-    
-    // Add to cart
-    $cart_item_key = WC()->cart->add_to_cart($product_id, $quantity);
-    
-    if (!$cart_item_key) {
-        wp_send_json_error(array('message' => 'Erro ao adicionar ao carrinho'));
+
+    // For variable products the variation_id is required
+    if ($product->is_type('variable') && !$variation_id) {
+        wp_send_json_error(array('message' => __('Por favor, selecione as opções do produto.', 'moda-feminina')));
+        return;
     }
-    
-    // Get cart fragments
-    $fragments = WC()->cart->get_cart_fragments();
-    
-    wp_send_json_success(array(
-        'fragments' => $fragments,
-        'cart_hash' => WC()->cart->get_cart_hash(),
-        'data' => array(
-            'name' => $product->get_name(),
-            'price' => $product->get_price_html(),
-            'image' => $product->get_image('woocommerce_thumbnail'),
+
+    // Validate variation purchasable/in-stock before adding
+    if ($variation_id) {
+        $variation_obj = wc_get_product($variation_id);
+        if (!$variation_obj || !$variation_obj->is_purchasable() || !$variation_obj->is_in_stock()) {
+            wp_send_json_error(array('message' => __('Esta combinação está indisponível no momento.', 'moda-feminina')));
+            return;
+        }
+    }
+
+    $cart_item_key = WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $variation);
+
+    if (false === $cart_item_key) {
+        $notices = wc_get_notices('error');
+        $msg     = !empty($notices) ? wp_strip_all_tags($notices[0]['notice']) : __('Erro ao adicionar ao carrinho.', 'moda-feminina');
+        wc_clear_notices();
+        wp_send_json_error(array('message' => $msg));
+        return;
+    }
+
+    // Build mini-cart fragment the WooCommerce way
+    ob_start();
+    woocommerce_mini_cart();
+    $mini_cart = ob_get_clean();
+
+    $fragments = apply_filters(
+        'woocommerce_add_to_cart_fragments',
+        array(
+            '.mf-mini-cart-drawer' => '<div class="mf-mini-cart-drawer widget_shopping_cart_content" id="mf-mini-cart-drawer" role="dialog" aria-label="Carrinho de compras" aria-hidden="true">' . $mini_cart . '</div>',
         )
+    );
+
+    // Use the actual product that was added (variation or parent)
+    $display_product = $variation_id ? wc_get_product($variation_id) : $product;
+
+    wp_send_json_success(array(
+        'fragments'  => $fragments,
+        'cart_hash'  => WC()->cart->get_cart_hash(),
+        'cart_count' => WC()->cart->get_cart_contents_count(),
+        'cart_total' => WC()->cart->get_cart_total(),
+        'data'       => array(
+            'name'  => $product->get_name(),
+            'price' => $display_product->get_price_html(),
+            'image' => $product->get_image('woocommerce_thumbnail'),
+        ),
     ));
 }
 add_action('wp_ajax_moda_feminina_add_to_cart', 'moda_feminina_ajax_add_to_cart');
@@ -282,6 +328,7 @@ add_action('wp_ajax_nopriv_moda_feminina_load_more_products', 'moda_feminina_aja
 
 // Cart Fragments for Mini Cart
 function moda_feminina_cart_fragments($fragments) {
+    // Mini-cart toggle button
     ob_start();
     ?>
     <div class="mf-mini-cart-toggle" data-cart-toggle>
@@ -366,9 +413,12 @@ function moda_feminina_track_recently_viewed($product_id) {
 }
 add_action('template_redirect', function() {
     if (is_product()) {
-        $product_id = absint(get_queried_object_id());
-        if ($product_id) {
-            moda_feminina_track_recently_viewed($product_id);
+        $queried_object = get_queried_object();
+        if ($queried_object && isset($queried_object->ID)) {
+            $product_id = absint($queried_object->ID);
+            if ($product_id) {
+                moda_feminina_track_recently_viewed($product_id);
+            }
         }
     }
 });
