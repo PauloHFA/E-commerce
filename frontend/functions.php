@@ -651,7 +651,7 @@ function moda_feminina_ajax_find_variation() {
     $data_store = WC_Data_Store::load('product');
     $variation_id = $data_store->find_matching_product_variation($product, $variation);
     
-    if ($variation_id) {
+    if ($variation_id && is_numeric($variation_id) && $variation_id > 0) {
         $variation_obj = wc_get_product($variation_id);
         
         $response = array(
