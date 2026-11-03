@@ -68,18 +68,28 @@ $in_wishlist = in_array((string)$product_id, $wishlist);
                         </svg>
                     </button>
                     
-                    <?php if (!$has_variations && $product->is_purchasable() && !$is_out_of_stock) : ?>
-                        <button type="button" class="mf-product-card__quick-btn mf-product-card__quick-btn--quick-add" 
-                                data-product-id="<?php echo esc_attr($product_id); ?>"
-                                aria-label="Adicionar <?php echo esc_attr($product_title); ?> ao carrinho">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                <line x1="3" y1="6" x2="21" y2="6"></line>
-                                <path d="M16 10a4 4 0 0 1 0 8"></path>
-                            </svg>
-                        </button>
-                    <?php endif; ?>
-                </div>
+                                    <button type="button" class="mf-product-card__quick-btn mf-product-card__quick-btn--peek" 
+                                            data-product-id="<?php echo esc_attr($product_id); ?>"
+                                            aria-label="Espiar <?php echo esc_attr($product_title); ?>">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        <span class="mf-product-card__quick-btn-text">Espiar</span>
+                                    </button>
+                    
+                                    <?php if (!$has_variations && $product->is_purchasable() && !$is_out_of_stock) : ?>
+                                        <button type="button" class="mf-product-card__quick-btn mf-product-card__quick-btn--quick-add" 
+                                                data-product-id="<?php echo esc_attr($product_id); ?>"
+                                                aria-label="Adicionar <?php echo esc_attr($product_title); ?> ao carrinho">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                                <path d="M16 10a4 4 0 0 1 0 8"></path>
+                                            </svg>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
             </div>
             
             <!-- Product Content -->

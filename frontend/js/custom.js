@@ -44,8 +44,9 @@
         initLoadingSkeletons($);
         initHeroScroll($);
         initQuantityButtons($);
+                initQuickViewModal($);
         
-        // Global state
+                // Global state
         window.ModaFeminina = {
             cart: { items: [], total: 0 },
             wishlist: [],
@@ -822,7 +823,242 @@
         });
     }
     
-    // Update cart count on page load
+        // Quick View Modal
+        function initQuickViewModal($) {
+            const $modal = $('#mf-quick-view-modal');
+            const $content = $('#mf-quick-view-content');
+            let currentProductId = null;
+        
+            // Open quick view
+            $(document).on('click', '.mf-product-card__quick-btn--peek', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            
+                const productId = $(this).data('product-id');
+                if (!productId) return;
+            
+                currentProductId = productId;
+                openQuickView(productId);
+            });
+        
+            // Close quick view
+            $(document).on('click', '[data-quick-view-close]', function() {
+                closeQuickView();
+            });
+        
+            // Close on Escape key
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape' && $modal.hasClass('is-open')) {
+                    closeQuickView();
+                }
+            });
+        
+            // Attribute selection
+            $(document).on('click', '.mf-quick-view-info__attribute-option', function() {
+                const $option = $(this);
+                const $attribute = $option.closest('.mf-quick-view-info__attribute');
+            
+                $attribute.find('.mf-quick-view-info__attribute-option').removeClass('is-selected');
+                $option.addClass('is-selected');
+            
+                // Update variation if all attributes selected
+                updateQuickViewVariation();
+            });
+        
+            // Quantity buttons
+            $(document).on('click', '.mf-quick-view-info__quantity-btn', function() {
+                const $btn = $(this);
+                const $input = $btn.siblings('.mf-quick-view-info__quantity-value');
+                const isPlus = $btn.hasClass('mf-qty-btn--plus');
+                let value = parseInt($input.val()) || 1;
+                const max = parseInt($input.attr('max')) || 99;
+                const min = parseInt($input.attr('min')) || 1;
+            
+                if (isPlus && value < max) {
+                    value++;
+                } else if (!isPlus && value > min) {
+                    value--;
+                }
+            
+                $input.val(value);
+            });
+        
+            // Add to cart from quick view
+            $(document).on('click', '.mf-quick-view-info__btn--add-to-cart', function() {
+                const $btn = $(this);
+                const productId = $btn.data('product-id');
+                const variationId = $btn.data('variation-id') || 0;
+                const quantity = parseInt($('.mf-quick-view-info__quantity-value').val()) || 1;
+            
+                // Collect selected attributes
+                const variation = {};
+                $('.mf-quick-view-info__attribute-option.is-selected').each(function() {
+                    const attrName = $(this).data('attribute-name');
+                    const attrValue = $(this).data('attribute-value');
+                    if (attrName && attrValue) {
+                        variation['attribute_' + attrName] = attrValue;
+                    }
+                });
+            
+                addToCartFromQuickView(productId, variationId, quantity, variation);
+            });
+        
+            function openQuickView(productId) {
+                $content.html(`
+                    <div class="mf-quick-view-loader">
+                        <div class="mf-spinner"></div>
+                        <span>Carregando...</span>
+                    </div>
+                `);
+            
+                $modal.addClass('is-open');
+                $('body').css('overflow', 'hidden');
+            
+                // Fetch product data via AJAX
+                $.ajax({
+                    url: mf_ajax_params.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'moda_feminina_quick_view',
+                        product_id: productId,
+                        _wpnonce: mf_ajax_params.add_to_cart_nonce
+                    },
+                    success: function(response) {
+                        if (response.success && response.data.html) {
+                            $content.html(response.data.html);
+                            initQuickViewGallery($);
+                        } else {
+                            $content.html('<p class="mf-quick-view-error">Erro ao carregar produto.</p>');
+                        }
+                    },
+                    error: function() {
+                        $content.html('<p class="mf-quick-view-error">Erro de conexão. Tente novamente.</p>');
+                    }
+                });
+            }
+        
+            function closeQuickView() {
+                $modal.removeClass('is-open');
+                $('body').css('overflow', '');
+                currentProductId = null;
+            
+                // Clear content after animation
+                setTimeout(function() {
+                    $content.html(`
+                        <div class="mf-quick-view-loader">
+                            <div class="mf-spinner"></div>
+                            <span>Carregando...</span>
+                        </div>
+                    `);
+                }, 300);
+            }
+        
+            function initQuickViewGallery($) {
+                $('.mf-quick-view-gallery__thumb').on('click', function() {
+                    const $thumb = $(this);
+                    const src = $thumb.find('img').attr('src');
+                
+                    $thumb.siblings().removeClass('is-active');
+                    $thumb.addClass('is-active');
+                
+                    $('.mf-quick-view-gallery__main img').attr('src', src);
+                });
+            }
+        
+            function updateQuickViewVariation() {
+                // Check if all required attributes are selected
+                const $attributes = $('.mf-quick-view-info__attribute');
+                let allSelected = true;
+                const variation = {};
+            
+                $attributes.each(function() {
+                    const $attr = $(this);
+                    const $selected = $attr.find('.mf-quick-view-info__attribute-option.is-selected');
+                
+                    if ($selected.length === 0) {
+                        allSelected = false;
+                    } else {
+                        const attrName = $selected.data('attribute-name');
+                        const attrValue = $selected.data('attribute-value');
+                        if (attrName && attrValue) {
+                            variation['attribute_' + attrName] = attrValue;
+                        }
+                    }
+                });
+            
+                if (allSelected && currentProductId) {
+                    // Find matching variation
+                    findMatchingVariation(currentProductId, variation);
+                }
+            }
+        
+            function findMatchingVariation(productId, variation) {
+                $.ajax({
+                    url: mf_ajax_params.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'moda_feminina_find_variation',
+                        product_id: productId,
+                        variation: variation,
+                        _wpnonce: mf_ajax_params.add_to_cart_nonce
+                    },
+                    success: function(response) {
+                        if (response.success && response.data.variation_id) {
+                            $('.mf-quick-view-info__btn--add-to-cart').data('variation-id', response.data.variation_id);
+                        
+                            // Update price if provided
+                            if (response.data.price_html) {
+                                $('.mf-quick-view-info__price').html(response.data.price_html);
+                            }
+                        
+                            // Update image if provided
+                            if (response.data.image) {
+                                $('.mf-quick-view-gallery__main img').attr('src', response.data.image);
+                            }
+                        }
+                    }
+                });
+            }
+        
+            function addToCartFromQuickView(productId, variationId, quantity, variation) {
+                const $btn = $('.mf-quick-view-info__btn--add-to-cart');
+                const originalText = $btn.html();
+            
+                $btn.prop('disabled', true).html('<span class="mf-spinner" style="width:20px;height:20px;border-width:2px;"></span> Adicionando...');
+            
+                $.ajax({
+                    url: mf_ajax_params.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'moda_feminina_add_to_cart',
+                        product_id: productId,
+                        variation_id: variationId,
+                        quantity: quantity,
+                        variation: variation,
+                        _wpnonce: mf_ajax_params.add_to_cart_nonce
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            window.showToast('Produto adicionado ao carrinho!', 'success');
+                            closeQuickView();
+                        
+                            // Trigger cart fragment refresh
+                            $(document.body).trigger('wc_fragments_refreshed');
+                        } else {
+                            window.showToast(response.data.message || 'Erro ao adicionar ao carrinho', 'error');
+                        }
+                    },
+                    error: function() {
+                        window.showToast('Erro de conexão. Tente novamente.', 'error');
+                    },
+                    complete: function() {
+                        $btn.prop('disabled', false).html(originalText);
+                    }
+                });
+            }
+        }
+    
+        // Update cart count on page load
     $(document).ready(function() {
         // Trigger initial cart fragment refresh
         $(document.body).trigger('wc_fragments_refreshed');

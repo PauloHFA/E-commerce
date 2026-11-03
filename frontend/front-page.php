@@ -21,11 +21,11 @@ get_header();
         <div class="mf-hero__overlay"></div>
     </div>
     <div class="mf-hero__content">
-        <span class="mf-hero__kicker">Nova Coleção / Primavera • Verão</span>
+            <span class="mf-hero__kicker">NOVA COLEÇÃO / primavera • verão</span>
         <h1 id="hero-title" class="mf-hero__title">Peças que contam sua história</h1>
         <p class="mf-hero__subtitle">Moda feminina elegante, sustentável e feita para durar. Descubra peças versáteis que transitam do dia para a noite.</p>
         <div class="mf-hero__cta">
-            <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg mf-hero__btn mf-hero__btn--primary">Explorar Coleção</a>
+                <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg mf-hero__btn mf-hero__btn--primary">CONFIRA AS NOVIDADES →</a>
             <a href="#newsletter" class="mf-btn mf-btn--ghost mf-btn--lg mf-hero__btn mf-hero__btn--ghost">Ver Lookbook</a>
         </div>
         <div class="mf-hero__trust">

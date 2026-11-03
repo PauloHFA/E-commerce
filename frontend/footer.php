@@ -153,6 +153,26 @@ if (!defined('ABSPATH')) {
                     <a href="<?php echo esc_url(wc_get_page_permalink('cart')); ?>" class="mf-btn mf-btn--outline mf-btn--full mf-mini-cart-drawer__btn mf-mini-cart-drawer__btn--view">Ver Carrinho</a>
                     <a href="<?php echo esc_url(wc_get_page_permalink('checkout')); ?>" class="mf-btn mf-btn--primary mf-btn--full mf-mini-cart-drawer__btn">Finalizar Compra</a>
                 </div>
+    </div>
+        </div>
+
+        <!-- Quick View Modal -->
+        <div class="mf-quick-view-modal" id="mf-quick-view-modal" role="dialog" aria-modal="true" aria-labelledby="mf-quick-view-title" aria-hidden="true">
+            <div class="mf-quick-view-modal__overlay" data-quick-view-close></div>
+            <div class="mf-quick-view-modal__container">
+                <button class="mf-quick-view-modal__close" aria-label="Fechar visualização rápida" data-quick-view-close>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="mf-quick-view-modal__content" id="mf-quick-view-content">
+                    <!-- Content loaded via AJAX -->
+                    <div class="mf-quick-view-loader">
+                        <div class="mf-spinner"></div>
+                        <span>Carregando...</span>
+                    </div>
+                </div>
             </div>
         </div>
 

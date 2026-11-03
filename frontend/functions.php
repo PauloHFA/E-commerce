@@ -524,3 +524,153 @@ function moda_feminina_body_classes($classes) {
     return $classes;
 }
 add_filter('body_class', 'moda_feminina_body_classes');
+
+// AJAX Quick View - Load product data for modal
+function moda_feminina_ajax_quick_view() {
+    check_ajax_referer('moda_feminina_add_to_cart', '_wpnonce');
+    
+    $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
+    
+    if (!$product_id) {
+        wp_send_json_error(array('message' => 'Produto inválido'));
+    }
+    
+    $product = wc_get_product($product_id);
+    
+    if (!$product) {
+        wp_send_json_error(array('message' => 'Produto não encontrado'));
+    }
+    
+    ob_start();
+    ?>
+    <div class="mf-quick-view-gallery">
+        <div class="mf-quick-view-gallery__main">
+            <?php echo $product->get_image('mf-product-gallery'); ?>
+        </div>
+        <?php if ($product->get_gallery_image_ids()) : ?>
+            <div class="mf-quick-view-gallery__thumbs">
+                <?php foreach ($product->get_gallery_image_ids() as $image_id) : ?>
+                    <button class="mf-quick-view-gallery__thumb" type="button" aria-label="Ver imagem">
+                        <?php echo wp_get_attachment_image($image_id, 'mf-product-thumb'); ?>
+                    </button>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    
+    <div class="mf-quick-view-info">
+        <h2 class="mf-quick-view-info__title"><?php echo esc_html($product->get_name()); ?></h2>
+        
+        <div class="mf-quick-view-info__price">
+            <?php echo $product->get_price_html(); ?>
+        </div>
+        
+        <?php if ($product->is_type('variable')) : ?>
+            <div class="mf-quick-view-info__attributes">
+                <?php
+                $attributes = $product->get_variation_attributes();
+                foreach ($attributes as $attr_name => $options) :
+                    $taxonomy = wc_attribute_taxonomy_name($attr_name);
+                    $tax = get_taxonomy($taxonomy);
+                    $label = $tax ? $tax->labels->singular_name : ucfirst(str_replace('pa_', '', $attr_name));
+                ?>
+                    <div class="mf-quick-view-info__attribute" data-attribute="<?php echo esc_attr($attr_name); ?>">
+                        <span class="mf-quick-view-info__attribute-label"><?php echo esc_html($label); ?></span>
+                        <div class="mf-quick-view-info__attribute-options">
+                            <?php foreach ($options as $option) : ?>
+                                <button type="button" 
+                                        class="mf-quick-view-info__attribute-option"
+                                        data-attribute-name="<?php echo esc_attr($attr_name); ?>"
+                                        data-attribute-value="<?php echo esc_attr($option); ?>">
+                                    <?php echo esc_html($option); ?>
+                                </button>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+        
+        <div class="mf-quick-view-info__quantity">
+            <label class="mf-quick-view-info__quantity-label" for="mf-qv-quantity">Quantidade</label>
+            <div class="mf-quick-view-info__quantity-input">
+                <button type="button" class="mf-quick-view-info__quantity-btn mf-qty-btn--minus" aria-label="Diminuir">−</button>
+                <input type="number" 
+                       id="mf-qv-quantity" 
+                       class="mf-quick-view-info__quantity-value" 
+                       value="1" 
+                       min="1" 
+                       max="<?php echo $product->get_stock_quantity() ? $product->get_stock_quantity() : 99; ?>"
+                       aria-label="Quantidade">
+                <button type="button" class="mf-quick-view-info__quantity-btn mf-qty-btn--plus" aria-label="Aumentar">+</button>
+            </div>
+        </div>
+        
+        <button type="button" 
+                class="mf-quick-view-info__btn mf-quick-view-info__btn--add-to-cart"
+                data-product-id="<?php echo esc_attr($product_id); ?>"
+                data-variation-id="0">
+            Adicionar à sacola
+        </button>
+        
+        <?php if ($product->get_short_description()) : ?>
+            <div class="mf-quick-view-info__excerpt">
+                <?php echo wc_format_content($product->get_short_description()); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+    
+    $html = ob_get_clean();
+    
+    wp_send_json_success(array(
+        'html' => $html,
+    ));
+}
+add_action('wp_ajax_moda_feminina_quick_view', 'moda_feminina_ajax_quick_view');
+add_action('wp_ajax_nopriv_moda_feminina_quick_view', 'moda_feminina_ajax_quick_view');
+
+// AJAX Find Matching Variation
+function moda_feminina_ajax_find_variation() {
+    check_ajax_referer('moda_feminina_add_to_cart', '_wpnonce');
+    
+    $product_id = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
+    $variation = isset($_POST['variation']) && is_array($_POST['variation']) ? $_POST['variation'] : array();
+    
+    if (!$product_id) {
+        wp_send_json_error(array('message' => 'Produto inválido'));
+    }
+    
+    $product = wc_get_product($product_id);
+    
+    if (!$product || !$product->is_type('variable')) {
+        wp_send_json_error(array('message' => 'Produto não é variável'));
+    }
+    
+    // Find matching variation using data store (replaces deprecated get_matching_variation)
+    $data_store = WC_Data_Store::load('product');
+    $variation_id = $data_store->find_matching_product_variation($product, $variation);
+    
+    if ($variation_id) {
+        $variation_obj = wc_get_product($variation_id);
+        
+        $response = array(
+            'variation_id' => $variation_id,
+            'price_html' => $variation_obj->get_price_html(),
+            'in_stock' => $variation_obj->is_in_stock(),
+            'stock_quantity' => $variation_obj->get_stock_quantity(),
+        );
+        
+        // Get variation image
+        $image_id = $variation_obj->get_image_id();
+        if ($image_id) {
+            $response['image'] = wp_get_attachment_image_url($image_id, 'mf-product-gallery');
+        }
+        
+        wp_send_json_success(array('data' => $response));
+    } else {
+        wp_send_json_error(array('message' => 'Combinação não encontrada'));
+    }
+}
+add_action('wp_ajax_moda_feminina_find_variation', 'moda_feminina_ajax_find_variation');
+add_action('wp_ajax_nopriv_moda_feminina_find_variation', 'moda_feminina_ajax_find_variation');
