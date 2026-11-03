@@ -13,7 +13,7 @@
 | 1 | **Adjust hero texts to match exact spec** | ✅ Done | 4df6aef | "NOVA COLEÇÃO / primavera • verão" + "CONFIRA AS NOVIDADES →" |
 | 2 | **Adjust announcement bar text to match spec** | ✅ Done | 9ec5b8b | "FRETE GRÁTIS EM COMPRAS ACIMA DE R$ 199 • ATÉ 6X SEM JUROS" (single line with •) |
 | 3 | **Implement circular thumbnails for categories** | ✅ Done | 84eeb76 | `border-radius: 50%` on collection cards |
-| 4 | **Add "Espiar" (quick view) button on product cards** | 🔄 In Progress | | Quick view modal with product details |
+| 4 | **Add "Espiar" (quick view) button on product cards** | ✅ Done | d557afe | Quick view modal with AJAX product loading, attribute selection, variation matching, add to cart |
 | 5 | **Add real photos placeholder structure** | ⏳ Pending | | Image paths for hero, collections, products |
 | 6 | **Mobile responsiveness testing & fixes** | ⏳ Pending | | Test 375px, 768px, 1024px, 1440px |
 | 7 | **Accessibility validation (axe, Lighthouse)** | ⏳ Pending | | WCAG 2.1 AA compliance |
@@ -45,11 +45,12 @@
 ### Commit History
 - `04d45c2` - feat: Complete premium e-commerce redesign for Moda Feminina
 - `b5d72f9` - docs: Update README with premium redesign documentation
+- `4df6aef` - chore: Adjust hero and announcement texts to match exact spec
+- `9ec5b8b` - feat: Implement circular category thumbnails
+- `84eeb76` - feat: Add quick view (Espiar) modal for product cards
+- `d557afe` - chore: remove temporary debug files from tracking
 
 ### Next Commits (Planned)
-- `chore: Adjust hero and announcement texts to match exact spec`
-- `feat: Implement circular category thumbnails`
-- `feat: Add quick view (Espiar) modal for product cards`
 - `feat: Add image placeholder structure for real photos`
 - `fix: Mobile responsiveness improvements`
 - `fix: Accessibility improvements`
