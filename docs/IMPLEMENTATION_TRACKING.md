@@ -15,7 +15,7 @@
 | 3 | **Implement circular thumbnails for categories** | ✅ Done | 84eeb76 | `border-radius: 50%` on collection cards |
 | 4 | **Add "Espiar" (quick view) button on product cards** | ✅ Done | d557afe | Quick view modal with AJAX product loading, attribute selection, variation matching, add to cart |
 | 5 | **Add real photos placeholder structure** | ✅ Done | 2d7761c | Local SVG placeholders for hero, collections, products, Instagram |
-| 6 | **Mobile responsiveness testing & fixes** | ⏳ Pending | | Test 375px, 768px, 1024px, 1440px |
+| 6 | **Mobile responsiveness testing & fixes** | ✅ Done | 3d6135d | All 280 tests pass at 375px, 768px, 1024px, 1440px |
 | 7 | **Accessibility validation (axe, Lighthouse)** | ⏳ Pending | | WCAG 2.1 AA compliance |
 | 8 | **Import catalog (300+ products via CSV)** | ⏳ Pending | | Requires CSV data from client |
 
@@ -50,9 +50,9 @@
 - `84eeb76` - feat: Add quick view (Espiar) modal for product cards
 - `d557afe` - chore: remove temporary debug files from tracking
 - `2d7761c` - feat: add image placeholder structure for hero, collections, products, and Instagram
+- `3d6135d` - fix: mobile responsiveness improvements across all breakpoints
 
 ### Next Commits (Planned)
-- `fix: Mobile responsiveness improvements`
 - `fix: Accessibility improvements`
 - `feat: Catalog import structure for 300+ products`
 
