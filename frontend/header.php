@@ -27,27 +27,21 @@ if (!defined('ABSPATH')) {
 <div id="page" class="hfeed site">
 
     <!-- Announcement Bar -->
-    <div class="mf-announcement-bar" id="mf-announcement-bar" role="region" aria-label="Anúncios">
-        <div class="mf-announcement-bar__content">
-            <div class="mf-announcement-bar__item">
-                <svg class="mf-announcement-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-                <span>Frete grátis em compras acima de R$ 199</span>
-            </div>
-            <div class="mf-announcement-bar__item">
-                <svg class="mf-announcement-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M21 12.79A9 9 0 1 1 9.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-                <span>Até 6x sem juros</span>
-            </div>
-            <div class="mf-announcement-bar__item">
-                <svg class="mf-announcement-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <rect x="2" y="4" width="20" height="14" rx="2"></rect>
-                    <line x1="6" y1="10" x2="6.01" y2="10"></line>
-                </svg>
-                <span>Troca fácil em 30 dias</span>
-            </div>
+        <div class="mf-announcement-bar" id="mf-announcement-bar" role="region" aria-label="Anúncios">
+            <div class="mf-announcement-bar__content">
+                <div class="mf-announcement-bar__item">
+                    <svg class="mf-announcement-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                    <span>FRETE GRÁTIS EM COMPRAS ACIMA DE R$ 199</span>
+                </div>
+                <div class="mf-announcement-bar__separator" aria-hidden="true">•</div>
+                <div class="mf-announcement-bar__item">
+                    <svg class="mf-announcement-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 9.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <span>ATÉ 6X SEM JUROS</span>
+                </div>
         </div>
     </div>
 

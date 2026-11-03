@@ -1939,6 +1939,13 @@ Tags: e-commerce, fashion, women, woocommerce, responsive
         opacity: 0.6;
     }
 
+        .mf-announcement-bar__separator {
+            color: var(--color-text-tertiary);
+            font-weight: 400;
+            letter-spacing: var(--tracking-normal);
+            margin: 0 var(--space-2);
+        }
+
     /* Header - Premium */
     .mf-header {
         position: fixed;
