@@ -18,6 +18,7 @@
 | 6 | **Mobile responsiveness testing & fixes** | ✅ Done | 3d6135d | All 280 tests pass at 375px, 768px, 1024px, 1440px |
 | 7 | **Accessibility validation (axe, Lighthouse)** | ✅ Done | 7e36f32 | WCAG 2.1 AA compliance - color contrast, focus indicators, semantic HTML, ARIA, touch targets, keyboard nav |
 | 8 | **Import catalog (300+ products via CSV)** | ⏳ Pending | | Requires CSV data from client |
+| 9 | **Fix homepage mojibake (UTF-8)** | ✅ Done | 893456e | Restored accents in hero, collections, newsletter, Instagram and footer CTA |
 
 ---
 
@@ -52,6 +53,7 @@
 - `2d7761c` - feat: add image placeholder structure for hero, collections, products, and Instagram
 - `3d6135d` - fix: mobile responsiveness improvements across all breakpoints
 - `7e36f32` - fix: accessibility improvements for WCAG 2.1 AA compliance
+- `893456e` - fix: restore UTF-8 Portuguese copy on the homepage
 
 ### Next Commits (Planned)
 - `feat: Catalog import structure for 300+ products`
