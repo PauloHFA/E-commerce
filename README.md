@@ -79,6 +79,11 @@ O layout foi completamente redesenhado com estética **premium/fashion** inspira
    ```
 3. O script instala WordPress, WooCommerce, campos brasileiros de checkout, o tema filho e dois produtos variáveis de exemplo.
 4. Abra http://localhost:8088. O admin local está no `.env` (`WP_ADMIN_USER` / `WP_ADMIN_PASSWORD`). A porta 8080 deste computador já está ocupada.
+5. Para carregar o catálogo de amostra, ou a planilha do cliente no mesmo formato:
+   ```powershell
+   docker compose --profile tools run --rm wpcli eval-file /scripts/import-catalog.php /scripts/catalogo-amostra.csv --user=1
+   ```
+   A amostra é gerada por `python scripts/generate-sample-catalog.py`. A planilha do cliente deve ser montada em `/scripts` ou copiada para `scripts/` antes do comando. O importador faz upsert por SKU e não apaga produtos ausentes do arquivo.
 
 A vitrine local tem página inicial redesenhada, produtos variáveis e filtros de tamanho, cor e preço. O plugin do Mercado Pago fica instalado e desativado até existirem as credenciais.
 
@@ -103,7 +108,8 @@ Veja o plano completo e atualizado em [docs/plano-implementacao.md](docs/plano-i
 - ✅ **Redesign visual premium completo** (layout, tipografia, cores, componentes, interações)
 - ✅ **Tema filho funcional** com todos os templates WooCommerce
 - ✅ **JavaScript modular** com todas as interações premium
-- ⏳ Catálogo de 300+ produtos variáveis (planilha em `docs/modelo-planilha-produtos.csv`)
+- ✅ Importador de catálogo (`scripts/import-catalog.php`) no formato de `docs/modelo-planilha-produtos.csv`
+- ⏳ Planilha real do cliente (a amostra local tem 300 produtos variáveis e não substitui os dados da marca)
 - ⏳ Pagamento real (Mercado Pago - aguarda credenciais)
 - ⏳ Frete, cupons, SEO, Instagram Shopping
 
