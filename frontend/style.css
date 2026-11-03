@@ -2492,7 +2492,7 @@ Tags: e-commerce, fashion, women, woocommerce, responsive
     .mf-collection-card {
         position: relative;
         aspect-ratio: 1;
-        border-radius: var(--radius-xl);
+            border-radius: 50%;
         overflow: hidden;
         text-decoration: none;
         display: block;
@@ -2532,7 +2532,8 @@ Tags: e-commerce, fashion, women, woocommerce, responsive
         transform: translateY(20px);
         opacity: 0;
         transition: all var(--transition-normal);
-    }
+            text-align: center;
+        }
 
     .mf-collection-card:hover .mf-collection-card__content {
         transform: translateY(0);
