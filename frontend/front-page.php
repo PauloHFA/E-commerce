@@ -12,7 +12,8 @@ if (!defined('ABSPATH')) {
 get_header();
 ?>
 
-</div>
+<div class="col-full">
+<main id="main-content" role="main">
 
 <!-- Hero Banner -->
 <section class="mf-hero" aria-labelledby="hero-title">
@@ -47,12 +48,10 @@ get_header();
             </div>
         </div>
     </div>
-    <button class="mf-hero__scroll" aria-label="Rolar para baixo" aria-hidden="true">
+    <button class="mf-hero__scroll" aria-label="Rolar para baixo">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </button>
 </section>
-
-<div class="col-full">
 
     <!-- Featured Collections -->
     <section class="mf-collections" aria-labelledby="collections-heading">
@@ -205,6 +204,9 @@ get_header();
             <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg">ComeÃ§ar a comprar</a>
         </div>
     </section>
+
+</main>
+</div>
 
 <?php
 get_footer();

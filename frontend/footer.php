@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
                 <div class="mf-footer__grid">
                     <!-- Brand Column -->
                     <div class="mf-footer__col mf-footer__col--brand">
-                        <a href="<?php echo esc_url(home_url('/')); ?>" class="mf-footer__logo" aria-label="Moda Feminina - Início">
+                            <a href="<?php echo esc_url(home_url('/')); ?>" class="mf-footer__logo">
                             <span class="mf-footer__logo-text">Moda Feminina</span>
                         </a>
                         <p class="mf-footer__tagline">Sua curadoria de estilo online. Peças selecionadas com cuidado para valorizar sua essência.</p>
@@ -47,8 +47,8 @@ if (!defined('ABSPATH')) {
                     </div>
 
                     <!-- Navigation Columns -->
-                    <nav class="mf-footer__col" aria-label="Atendimento">
-                        <h3 class="mf-footer__heading">Atendimento</h3>
+                        <nav class="mf-footer__col" aria-labelledby="footer-heading-atendimento">
+                            <h2 id="footer-heading-atendimento" class="mf-footer__heading">Atendimento</h2>
                         <ul class="mf-footer__links">
                             <li><a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>">Minha Conta</a></li>
                             <li><a href="<?php echo esc_url(wc_get_page_permalink('cart')); ?>">Meu Carrinho</a></li>
@@ -59,8 +59,8 @@ if (!defined('ABSPATH')) {
                         </ul>
                     </nav>
 
-                    <nav class="mf-footer__col" aria-label="Institucional">
-                        <h3 class="mf-footer__heading">Institucional</h3>
+                        <nav class="mf-footer__col" aria-labelledby="footer-heading-institucional">
+                            <h2 id="footer-heading-institucional" class="mf-footer__heading">Institucional</h2>
                         <ul class="mf-footer__links">
                             <li><a href="#">Sobre Nós</a></li>
                             <li><a href="#">Nossas Lojas</a></li>
@@ -71,8 +71,8 @@ if (!defined('ABSPATH')) {
                         </ul>
                     </nav>
 
-                    <nav class="mf-footer__col" aria-label="Políticas">
-                        <h3 class="mf-footer__heading">Políticas</h3>
+                        <nav class="mf-footer__col" aria-labelledby="footer-heading-politicas">
+                            <h2 id="footer-heading-politicas" class="mf-footer__heading">Políticas</h2>
                         <ul class="mf-footer__links">
                             <li><a href="#">Política de Privacidade</a></li>
                             <li><a href="#">Termos de Uso</a></li>
@@ -125,7 +125,7 @@ if (!defined('ABSPATH')) {
     <div class="mf-cart-overlay" id="mf-cart-overlay" aria-hidden="true"></div>
 
         <!-- Mini Cart Drawer -->
-        <div class="mf-mini-cart-drawer" id="mf-mini-cart-drawer" role="dialog" aria-label="Carrinho de compras" aria-hidden="true">
+        <div class="mf-mini-cart-drawer" id="mf-mini-cart-drawer" role="dialog" aria-label="Carrinho de compras" aria-modal="true" hidden>
             <div class="mf-mini-cart-drawer__header">
                 <h2 class="mf-mini-cart-drawer__title">Carrinho</h2>
                 <button class="mf-mini-cart-drawer__close" aria-label="Fechar carrinho" data-cart-close>
@@ -157,7 +157,7 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!-- Quick View Modal -->
-        <div class="mf-quick-view-modal" id="mf-quick-view-modal" role="dialog" aria-modal="true" aria-labelledby="mf-quick-view-title" aria-hidden="true">
+        <div class="mf-quick-view-modal" id="mf-quick-view-modal" role="dialog" aria-modal="true" aria-labelledby="mf-quick-view-title" hidden>
             <div class="mf-quick-view-modal__overlay" data-quick-view-close></div>
             <div class="mf-quick-view-modal__container">
                 <button class="mf-quick-view-modal__close" aria-label="Fechar visualização rápida" data-quick-view-close>

@@ -14,6 +14,7 @@ get_header();
 
 <div class="mf-shop-wrapper">
     <div class="col-full">
+        <main id="main-content" role="main">
         
         <!-- Page Header -->
         <header class="mf-shop-header">
@@ -76,7 +77,7 @@ get_header();
                                 <label for="max-price" class="screen-reader-text">Preço máximo</label>
                                 <input type="number" id="max-price" class="mf-price-input" placeholder="Máx" min="0" step="1" aria-label="Preço máximo">
                             </div>
-                            <div class="mf-price-slider" data-price-slider role="slider" aria-label="Intervalo de preço" aria-valuemin="0" aria-valuemax="1000"></div>
+                            <div class="mf-price-slider" data-price-slider role="slider" aria-label="Intervalo de preço" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0" tabindex="0"></div>
                             <div class="mf-price-labels">
                                 <span>R$ 0</span>
                                 <span>R$ 1000+</span>
@@ -87,7 +88,7 @@ get_header();
                     <!-- Filter: Categories -->
                     <div class="mf-filter-section">
                         <h3 class="mf-filter-section-title">Categorias</h3>
-                        <ul class="mf-filter-list" role="group" aria-label="Categorias">
+                        <ul class="mf-filter-list" aria-label="Categorias">
                             <?php
                             $categories = get_terms(array(
                                 'taxonomy' => 'product_cat',
@@ -157,7 +158,7 @@ get_header();
             <div class="mf-filter-overlay" data-filter-overlay hidden></div>
 
             <!-- Main Content Area -->
-            <main class="mf-shop-main" role="main">
+                        <div class="mf-shop-main">
                 
                 <!-- Toolbar -->
                 <div class="mf-shop-toolbar" data-toolbar>
@@ -260,7 +261,7 @@ get_header();
                         </span>
                     </button>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
 </div>

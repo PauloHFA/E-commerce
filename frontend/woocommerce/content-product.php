@@ -39,8 +39,8 @@ $in_wishlist = in_array((string)$product_id, $wishlist);
     <article class="mf-product-card-inner">
         <a href="<?php echo esc_url($product_url); ?>" class="mf-product-card__link" aria-label="<?php echo esc_attr($product_title); ?>">
             
-            <!-- Product Image -->
-            <div class="mf-product-card__image-wrapper">
+                    <!-- Product Image -->
+                    <div class="mf-product-card__image-wrapper">
                 <?php echo $product_image; ?>
                 
                 <!-- Badges -->

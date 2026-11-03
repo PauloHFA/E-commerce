@@ -20,6 +20,7 @@ get_header();
 
 <div class="mf-single-product-wrapper">
     <div class="col-full">
+        <main id="main-content" role="main">
         <div class="mf-product-main">
             
             <!-- Breadcrumb -->
@@ -365,11 +366,11 @@ get_header();
                     
                     if ($composition || $care) :
                         if ($composition) : ?>
-                            <h3>Composição</h3>
+                            <h2>Composição</h2>
                             <div class="mf-composition"><?php echo wp_kses_post($composition); ?></div>
                         <?php endif;
                         if ($care) : ?>
-                            <h3>Cuidados</h3>
+                            <h2>Cuidados</h2>
                             <div class="mf-care"><?php echo wp_kses_post($care); ?></div>
                         <?php endif;
                     else : ?>
@@ -384,7 +385,7 @@ get_header();
                         <div class="mf-size-guide"><?php echo wp_kses_post($size_guide); ?></div>
                     <?php else : ?>
                         <div class="mf-size-guide-default">
-                            <h3>Guia de Medidas</h3>
+                            <h2>Guia de Medidas</h2>
                             <table class="mf-size-table">
                                 <thead>
                                     <tr>
@@ -454,6 +455,8 @@ get_header();
             </div>
         </section>
     </div>
-</div>
+    </main>
+    </div>
+    </div>
 
 <?php get_footer(); ?>

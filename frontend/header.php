@@ -49,13 +49,13 @@ if (!defined('ABSPATH')) {
     <header class="mf-header" id="mf-header" role="banner">
         <div class="mf-header__inner">
             <!-- Logo -->
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="mf-logo" aria-label="Moda Feminina - Início">
+                        <a href="<?php echo esc_url(home_url('/')); ?>" class="mf-logo">
                 <span class="mf-logo__text">Moda Feminina</span>
-                <span class="mf-logo__tagline">Sua curadoria de estilo online</span>
+                            <span class="mf-logo__tagline" aria-hidden="true">Sua curadoria de estilo online</span>
             </a>
 
             <!-- Search -->
-            <div class="mf-search" role="search">
+                        <div class="mf-search" role="search" aria-label="Pesquisa do site">
                 <form class="mf-search__form" action="<?php echo esc_url(home_url('/')); ?>" method="get">
                     <input 
                         type="search" 
@@ -92,14 +92,15 @@ if (!defined('ABSPATH')) {
                 </a>
 
                 <!-- Cart -->
-                <button class="mf-header-action mf-header-action--cart" id="mf-mini-cart-toggle" aria-label="Carrinho de compras" aria-expanded="false" data-cart-toggle>
+                                <button class="mf-header-action mf-header-action--cart" id="mf-mini-cart-toggle" aria-expanded="false" data-cart-toggle>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <path d="M16 10a4 4 0 0 1 0 8"></path>
                     </svg>
-                    <span class="mf-header-action__count" id="mf-cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
-                </button>
+                                    <span class="mf-header-action__count" id="mf-cart-count" aria-hidden="true"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+                                    <span class="screen-reader-text">Carrinho de compras</span>
+                                </button>
             </div>
         </div>
     </header>
