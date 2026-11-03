@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Professional Homepage - Premium Fashion E-commerce
  *
@@ -22,21 +22,21 @@ get_header();
         <div class="mf-hero__overlay"></div>
     </div>
     <div class="mf-hero__content">
-            <span class="mf-hero__kicker">NOVA COLEÃ‡ÃƒO / primavera â€¢ verÃ£o</span>
-        <h1 id="hero-title" class="mf-hero__title">PeÃ§as que contam sua histÃ³ria</h1>
-        <p class="mf-hero__subtitle">Moda feminina elegante, sustentÃ¡vel e feita para durar. Descubra peÃ§as versÃ¡teis que transitam do dia para a noite.</p>
+            <span class="mf-hero__kicker">NOVA COLEÇÃO / primavera • verão</span>
+        <h1 id="hero-title" class="mf-hero__title">Peças que contam sua história</h1>
+        <p class="mf-hero__subtitle">Moda feminina elegante, sustentável e feita para durar. Descubra peças versáteis que transitam do dia para a noite.</p>
         <div class="mf-hero__cta">
-                <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg mf-hero__btn mf-hero__btn--primary">CONFIRA AS NOVIDADES â†’</a>
+                <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg mf-hero__btn mf-hero__btn--primary">CONFIRA AS NOVIDADES →</a>
             <a href="#newsletter" class="mf-btn mf-btn--ghost mf-btn--lg mf-hero__btn mf-hero__btn--ghost">Ver Lookbook</a>
         </div>
         <div class="mf-hero__trust">
             <div class="mf-hero__trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-                <span>Frete grÃ¡tis acima de R$ 199</span>
+                <span>Frete grátis acima de R$ 199</span>
             </div>
             <div class="mf-hero__trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 9.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <span>Troca fÃ¡cil em 30 dias</span>
+                <span>Troca fácil em 30 dias</span>
             </div>
             <div class="mf-hero__trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"></rect><line x1="6" y1="10" x2="6.01" y2="10"></line></svg>
@@ -58,7 +58,7 @@ get_header();
         <div class="mf-container">
             <header class="mf-section-header">
                 <span class="mf-section-header__kicker">Categorias</span>
-                <h2 id="collections-heading" class="mf-section-header__title">Nossas ColeÃ§Ãµes</h2>
+                <h2 id="collections-heading" class="mf-section-header__title">Nossas Coleções</h2>
                 <p class="mf-section-header__subtitle">Curadas com carinho para cada momento</p>
             </header>
             
@@ -67,7 +67,7 @@ get_header();
                 $collections = array(
                     array(
                         'title' => 'Essenciais',
-                        'subtitle' => 'BÃ¡sicos premium',
+                        'subtitle' => 'Básicos premium',
                                         'image' => get_stylesheet_directory_uri() . '/images/collections/collection-essentials.svg',
                         'link' => wc_get_page_permalink('shop') . '?product_cat=essenciais',
                     ),
@@ -79,12 +79,12 @@ get_header();
                     ),
                     array(
                         'title' => 'Alfaiataria',
-                        'subtitle' => 'Estrutura e elegÃ¢ncia',
+                        'subtitle' => 'Estrutura e elegância',
                                         'image' => get_stylesheet_directory_uri() . '/images/collections/collection-tailoring.svg',
                         'link' => wc_get_page_permalink('shop') . '?product_cat=alfaiataria',
                     ),
                     array(
-                        'title' => 'AcessÃ³rios',
+                        'title' => 'Acessórios',
                         'subtitle' => 'O toque final',
                                         'image' => get_stylesheet_directory_uri() . '/images/collections/collection-accessories.svg',
                         'link' => wc_get_page_permalink('shop') . '?product_cat=acessorios',
@@ -96,7 +96,7 @@ get_header();
                 <article class="mf-collection-card mf-animate-on-scroll mf-stagger-<?php echo $index + 1; ?>">
                     <div class="mf-collection-card__bg" style="background-image: url('<?php echo esc_url($collection['image']); ?>');" aria-hidden="true"></div>
                     <div class="mf-collection-card__overlay"></div>
-                    <a href="<?php echo esc_url($collection['link']); ?>" class="mf-collection-card__content" aria-label="Ver coleÃ§Ã£o <?php echo esc_attr($collection['title']); ?>">
+                    <a href="<?php echo esc_url($collection['link']); ?>" class="mf-collection-card__content" aria-label="Ver coleção <?php echo esc_attr($collection['title']); ?>">
                         <span class="mf-collection-card__subtitle"><?php echo esc_html($collection['subtitle']); ?></span>
                         <h3 class="mf-collection-card__title"><?php echo esc_html($collection['title']); ?></h3>
                         <span class="mf-collection-card__cta">Explorar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
@@ -113,7 +113,7 @@ get_header();
             <header class="mf-section-header mf-flex mf-flex--between">
                 <div>
                     <span class="mf-section-header__kicker">Em Destaque</span>
-                    <h2 id="featured-heading" class="mf-section-header__title">Nossas peÃ§as mais amadas</h2>
+                    <h2 id="featured-heading" class="mf-section-header__title">Nossas peças mais amadas</h2>
                 </div>
                 <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--ghost mf-section-header__action">Ver todos os produtos</a>
             </header>
@@ -129,8 +129,8 @@ get_header();
         <div class="mf-newsletter__inner">
             <div class="mf-newsletter__content">
                 <span class="mf-newsletter__kicker">Newsletter</span>
-                <h2 id="newsletter-heading" class="mf-newsletter__title">FaÃ§a parte do nosso mundo</h2>
-                <p class="mf-newsletter__text">Receba novidades, acesso antecipado a lanÃ§amentos e 10% de desconto na primeira compra.</p>
+                <h2 id="newsletter-heading" class="mf-newsletter__title">Faça parte do nosso mundo</h2>
+                <p class="mf-newsletter__text">Receba novidades, acesso antecipado a lançamentos e 10% de desconto na primeira compra.</p>
                 <div class="mf-newsletter__benefits">
                     <div class="mf-newsletter__benefit">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -151,7 +151,7 @@ get_header();
                     <input type="email" name="email" class="mf-newsletter__input" placeholder="Seu melhor e-mail" required autocomplete="email" aria-label="Seu melhor e-mail">
                     <button type="submit" class="mf-btn mf-btn--primary mf-newsletter__btn">Inscrever-se</button>
                 </div>
-                <p class="mf-newsletter__privacy">Respeitamos sua privacidade. <a href="#">PolÃ­tica de privacidade</a>.</p>
+                <p class="mf-newsletter__privacy">Respeitamos sua privacidade. <a href="#">Política de privacidade</a>.</p>
             </form>
         </div>
     </section>
@@ -160,8 +160,8 @@ get_header();
     <section class="mf-instagram" aria-labelledby="instagram-heading">
         <div class="mf-container">
             <header class="mf-section-header">
-                <span class="mf-section-header__kicker">InspiraÃ§Ã£o</span>
-                <h2 id="instagram-heading" class="mf-section-header__title">InspiraÃ§Ã£o do Dia</h2>
+                <span class="mf-section-header__kicker">Inspiração</span>
+                <h2 id="instagram-heading" class="mf-section-header__title">Inspiração do Dia</h2>
                 <p class="mf-section-header__subtitle">Siga-nos @modafeminina</p>
             </header>
             
@@ -200,8 +200,8 @@ get_header();
     <section class="mf-footer-cta" aria-labelledby="footer-cta-heading">
         <div class="mf-footer-cta__inner">
             <h2 id="footer-cta-heading" class="mf-footer-cta__title">Pronto para renovar seu guarda-roupa?</h2>
-            <p class="mf-footer-cta__text">Descubra peÃ§as que valorizam sua essÃªncia. Frete grÃ¡tis acima de R$ 199.</p>
-            <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg">ComeÃ§ar a comprar</a>
+            <p class="mf-footer-cta__text">Descubra peças que valorizam sua essência. Frete grátis acima de R$ 199.</p>
+            <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg">Começar a comprar</a>
         </div>
     </section>
 
