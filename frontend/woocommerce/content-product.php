@@ -37,8 +37,7 @@ $in_wishlist = in_array((string)$product_id, $wishlist);
 
 <li class="mf-product-card product type-product mf-animate-on-scroll" data-id="<?php echo esc_attr($product_id); ?>" data-container="product-card">
     <article class="mf-product-card-inner">
-        <a href="<?php echo esc_url($product_url); ?>" class="mf-product-card__link" aria-label="<?php echo esc_attr($product_title); ?>">
-            
+        <a href="<?php echo esc_url($product_url); ?>" class="mf-product-card__link">
                     <!-- Product Image -->
                     <div class="mf-product-card__image-wrapper">
                 <?php echo $product_image; ?>

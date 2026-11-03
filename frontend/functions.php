@@ -66,6 +66,19 @@ function moda_feminina_cart_button_text() {
 add_filter('woocommerce_product_single_add_to_cart_text', 'moda_feminina_cart_button_text');
 add_filter('woocommerce_product_add_to_cart_text', 'moda_feminina_cart_button_text');
 
+/**
+ * Fix WCAG 2.1 AA: label-content-name-mismatch on loop add-to-cart links.
+ * WooCommerce adds aria-label="Selecione as opções para..." on variable products,
+ * which conflicts with the visible button text "Adicionar à sacola".
+ * Remove the mismatched aria-label so the accessible name matches visible text.
+ */
+function moda_feminina_fix_loop_add_to_cart_link( $link, $product ) {
+    // Remove aria-label that doesn't match visible text to fix label-content-name-mismatch
+    $link = preg_replace( '/\s*aria-label="[^"]*"/', '', $link );
+    return $link;
+}
+add_filter( 'woocommerce_loop_add_to_cart_link', 'moda_feminina_fix_loop_add_to_cart_link', 10, 2 );
+
 function moda_feminina_featured_badge() {
     global $product;
 
