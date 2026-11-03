@@ -1,0 +1,70 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="product3-title product3-desc">
+  <title id="product3-title">Product Placeholder 3</title>
+  <desc id="product3-desc">Clean product photo style placeholder - tailored blazer</desc>
+  <defs>
+    <linearGradient id="productGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0EFEB;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#E8E6E0;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#E0DDD5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D8D4CA;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="productShadow3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0" />
+      <stop offset="60%" style="stop-color:#000000;stop-opacity:0.02" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.08" />
+    </linearGradient>
+    <pattern id="fabricTexture3" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="8" r="1.5" fill="#B8B0A0" opacity="0.06"/>
+      <circle cx="4" cy="12" r="1" fill="#B8B0A0" opacity="0.05"/>
+      <circle cx="12" cy="4" r="1" fill="#B8B0A0" opacity="0.05"/>
+    </pattern>
+  </defs>
+  
+  <rect width="800" height="1000" fill="url(#productGradient3)"/>
+  <rect width="800" height="1000" fill="url(#fabricTexture3)"/>
+  
+  <g transform="translate(400, 500)">
+    <ellipse cx="0" cy="380" rx="280" ry="40" fill="url(#productShadow3)"/>
+    
+    <!-- Blazer silhouette -->
+    <g fill="#E8E6E0" stroke="#B8B0A0" stroke-width="1.5" opacity="0.9">
+      <path d="M -200 -180 Q -200 -250 -130 -250 L 130 -250 Q 200 -250 200 -180 L 200 220 Q 200 270 150 270 L -150 270 Q -200 270 -200 220 Z"/>
+      
+      <!-- Lapels -->
+      <path d="M -80 -250 Q -80 -280 -40 -280 Q 0 -280 0 -250" fill="none" stroke="#B8B0A0" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 40 -250 Q 40 -280 80 -280 Q 120 -280 120 -250" fill="none" stroke="#B8B0A0" stroke-width="2" stroke-linecap="round"/>
+      
+      <!-- Buttons -->
+      <circle cx="-20" cy="-100" r="6" fill="#B8B0A0" opacity="0.4"/>
+      <circle cx="-20" cy="-20" r="6" fill="#B8B0A0" opacity="0.4"/>
+      <circle cx="-20" cy="60" r="6" fill="#B8B0A0" opacity="0.4"/>
+      
+      <!-- Pockets -->
+      <path d="M -140 80 L -140 140 Q -140 160 -120 160 L -60 160 Q -40 160 -40 140 L -40 80" fill="none" stroke="#B8B0A0" stroke-width="1.5"/>
+      <path d="M 60 80 L 60 140 Q 60 160 80 160 L 140 160 Q 160 160 160 140 L 160 80" fill="none" stroke="#B8B0A0" stroke-width="1.5"/>
+      
+      <!-- Sleeve cuffs -->
+      <path d="M -200 20 L -200 60 Q -200 80 -180 80 L -130 80 Q -110 80 -110 60 L -110 20" fill="none" stroke="#B8B0A0" stroke-width="1.5"/>
+      <path d="M 110 20 L 110 60 Q 110 80 130 80 L 180 80 Q 200 80 200 60 L 200 20" fill="none" stroke="#B8B0A0" stroke-width="1.5"/>
+    </g>
+    
+    <g stroke="#B8B0A0" stroke-width="0.5" opacity="0.15" fill="none">
+      <path d="M -150 -150 Q -150 -50 -150 50"/>
+      <path d="M 0 -150 Q 0 -50 0 50"/>
+      <path d="M 150 -150 Q 150 -50 150 50"/>
+    </g>
+  </g>
+  
+  <g transform="translate(400, 920)">
+    <text x="0" y="0" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="300" fill="#8B8378" letter-spacing="0.1em">PRODUCT PLACEHOLDER</text>
+    <text x="0" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#A8A095">800 × 1000 • Tailored Blazer</text>
+    <text x="0" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#B8B0A0" opacity="0.7">Moda Feminina • Premium Placeholder</text>
+  </g>
+  
+  <g stroke="#B8B0A0" stroke-width="1" opacity="0.15" fill="none">
+    <path d="M 50 50 L 50 150 M 50 50 L 150 50"/>
+    <path d="M 750 50 L 750 150 M 750 50 L 650 50"/>
+    <path d="M 50 950 L 50 850 M 50 950 L 150 950"/>
+    <path d="M 750 950 L 750 850 M 750 950 L 650 950"/>
+  </g>
+</svg>

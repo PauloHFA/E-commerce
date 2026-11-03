@@ -1,0 +1,75 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="product1-title product1-desc">
+  <title id="product1-title">Product Placeholder 1</title>
+  <desc id="product1-desc">Clean product photo style placeholder for Moda Feminina e-commerce</desc>
+  <defs>
+    <linearGradient id="productGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FAF8F5;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#F5F0EB;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#EDE4DD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E5DCCF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="productShadow1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0" />
+      <stop offset="60%" style="stop-color:#000000;stop-opacity:0.02" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.08" />
+    </linearGradient>
+    <pattern id="fabricTexture1" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M0 10 Q10 0 20 10 Q10 20 0 10" fill="none" stroke="#C4B8A8" stroke-width="0.2" opacity="0.08"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="1000" fill="url(#productGradient1)"/>
+  <rect width="800" height="1000" fill="url(#fabricTexture1)"/>
+  
+  <!-- Product area (centered, 80% width) -->
+  <g transform="translate(400, 500)">
+    <!-- Soft shadow -->
+    <ellipse cx="0" cy="380" rx="280" ry="40" fill="url(#productShadow1)"/>
+    
+    <!-- Product silhouette - versatile blouse/top -->
+    <g fill="#F5F0EB" stroke="#C4B8A8" stroke-width="1.5" opacity="0.9">
+      <!-- Main body -->
+      <path d="M -180 -200 Q -180 -280 -100 -280 L 100 -280 Q 180 -280 180 -200 L 180 200 Q 180 250 130 250 L -130 250 Q -180 250 -180 200 Z"/>
+      
+      <!-- Sleeves -->
+      <path d="M -180 -150 Q -230 -150 -230 -80 Q -230 -20 -180 -20 L -180 -150 Z"/>
+      <path d="M 180 -150 Q 230 -150 230 -80 Q 230 -20 180 -20 L 180 -150 Z"/>
+      
+      <!-- Neckline -->
+      <path d="M -60 -280 Q -60 -310 0 -310 Q 60 -310 60 -280" fill="none" stroke="#C4B8A8" stroke-width="2"/>
+      
+      <!-- Button placket -->
+      <line x1="0" y1="-260" x2="0" y2="200" stroke="#C4B8A8" stroke-width="1" opacity="0.3"/>
+      <circle cx="0" cy="-220" r="4" fill="#C4B8A8" opacity="0.3"/>
+      <circle cx="0" cy="-140" r="4" fill="#C4B8A8" opacity="0.3"/>
+      <circle cx="0" cy="-60" r="4" fill="#C4B8A8" opacity="0.3"/>
+      <circle cx="0" cy="20" r="4" fill="#C4B8A8" opacity="0.3"/>
+      <circle cx="0" cy="100" r="4" fill="#C4B8A8" opacity="0.3"/>
+      <circle cx="0" cy="180" r="4" fill="#C4B8A8" opacity="0.3"/>
+    </g>
+    
+    <!-- Subtle fold lines -->
+    <g stroke="#C4B8A8" stroke-width="0.5" opacity="0.15" fill="none">
+      <path d="M -120 -200 Q -120 -100 -120 0"/>
+      <path d="M -60 -200 Q -60 -100 -60 0"/>
+      <path d="M 60 -200 Q 60 -100 60 0"/>
+      <path d="M 120 -200 Q 120 -100 120 0"/>
+    </g>
+  </g>
+  
+  <!-- Placeholder label -->
+  <g transform="translate(400, 920)">
+    <text x="0" y="0" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="300" fill="#8B7D6B" letter-spacing="0.1em">PRODUCT PLACEHOLDER</text>
+    <text x="0" y="30" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#A89B8B">800 × 1000 • Clean Product Style</text>
+    <text x="0" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#C4B8A8" opacity="0.7">Moda Feminina • Premium Placeholder</text>
+  </g>
+  
+  <!-- Corner markers -->
+  <g stroke="#C4B8A8" stroke-width="1" opacity="0.15" fill="none">
+    <path d="M 50 50 L 50 150 M 50 50 L 150 50"/>
+    <path d="M 750 50 L 750 150 M 750 50 L 650 50"/>
+    <path d="M 50 950 L 50 850 M 50 950 L 150 950"/>
+    <path d="M 750 950 L 750 850 M 750 950 L 650 950"/>
+  </g>
+</svg>

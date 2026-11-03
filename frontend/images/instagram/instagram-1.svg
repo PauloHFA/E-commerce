@@ -1,0 +1,43 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="insta1-title insta1-desc">
+  <title id="insta1-title">Instagram Feed Placeholder 1</title>
+  <desc id="insta1-desc">Square Instagram feed placeholder for Moda Feminina</desc>
+  <defs>
+    <linearGradient id="instaGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0EB;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#EDE4DD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E5DCCF;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="instaTexture1" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
+      <circle cx="7.5" cy="7.5" r="1" fill="#C4B8A8" opacity="0.1"/>
+    </pattern>
+  </defs>
+  
+  <rect width="300" height="300" fill="url(#instaGradient1)"/>
+  <rect width="300" height="300" fill="url(#instaTexture1)"/>
+  
+  <!-- Subtle composition lines -->
+  <g stroke="#C4B8A8" stroke-width="0.5" opacity="0.15" fill="none">
+    <line x1="75" y1="75" x2="225" y2="75"/>
+    <line x1="75" y1="225" x2="225" y2="225"/>
+    <line x1="75" y1="75" x2="75" y2="225"/>
+    <line x1="225" y1="75" x2="225" y2="225"/>
+  </g>
+  
+  <!-- Center content -->
+  <g transform="translate(150, 150)">
+    <!-- Minimalist fashion element -->
+    <g stroke="#8B7D6B" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5">
+      <path d="M -30 -10 L -30 -30 Q -30 -40 -20 -40 L 20 -40 Q 30 -40 30 -30 L 30 -10 Z"/>
+      <path d="M -15 -30 L -15 -45 M 15 -30 L 15 -45"/>
+    </g>
+    
+    <text x="0" y="60" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="300" fill="#8B7D6B" letter-spacing="0.1em">INSTAGRAM FEED</text>
+    <text x="0" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#A89B8B">300 × 300</text>
+    <text x="0" y="105" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#C4B8A8" opacity="0.7">@modafeminina</text>
+  </g>
+  
+  <!-- Instagram logo hint -->
+  <g transform="translate(260, 40)" opacity="0.15">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-3.584-.069-4.849-.149-3.225-1.664-4.771-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.44-.645 1.44-1.44-.645-1.44-1.441-1.44z"></path></svg>
+  </g>
+</svg>

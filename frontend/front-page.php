@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Professional Homepage - Premium Fashion E-commerce
  *
@@ -17,25 +17,25 @@ get_header();
 <!-- Hero Banner -->
 <section class="mf-hero" aria-labelledby="hero-title">
     <div class="mf-hero__bg">
-        <img class="mf-hero__image" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/images/hero-banner.jpg'); ?>" alt="" aria-hidden="true">
+        <img class="mf-hero__image" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/images/hero/hero-banner.svg'); ?>" alt="" aria-hidden="true">
         <div class="mf-hero__overlay"></div>
     </div>
     <div class="mf-hero__content">
-            <span class="mf-hero__kicker">NOVA COLEÇÃO / primavera • verão</span>
-        <h1 id="hero-title" class="mf-hero__title">Peças que contam sua história</h1>
-        <p class="mf-hero__subtitle">Moda feminina elegante, sustentável e feita para durar. Descubra peças versáteis que transitam do dia para a noite.</p>
+            <span class="mf-hero__kicker">NOVA COLEÃ‡ÃƒO / primavera â€¢ verÃ£o</span>
+        <h1 id="hero-title" class="mf-hero__title">PeÃ§as que contam sua histÃ³ria</h1>
+        <p class="mf-hero__subtitle">Moda feminina elegante, sustentÃ¡vel e feita para durar. Descubra peÃ§as versÃ¡teis que transitam do dia para a noite.</p>
         <div class="mf-hero__cta">
-                <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg mf-hero__btn mf-hero__btn--primary">CONFIRA AS NOVIDADES →</a>
+                <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg mf-hero__btn mf-hero__btn--primary">CONFIRA AS NOVIDADES â†’</a>
             <a href="#newsletter" class="mf-btn mf-btn--ghost mf-btn--lg mf-hero__btn mf-hero__btn--ghost">Ver Lookbook</a>
         </div>
         <div class="mf-hero__trust">
             <div class="mf-hero__trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-                <span>Frete grátis acima de R$ 199</span>
+                <span>Frete grÃ¡tis acima de R$ 199</span>
             </div>
             <div class="mf-hero__trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 9.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <span>Troca fácil em 30 dias</span>
+                <span>Troca fÃ¡cil em 30 dias</span>
             </div>
             <div class="mf-hero__trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"></rect><line x1="6" y1="10" x2="6.01" y2="10"></line></svg>
@@ -59,7 +59,7 @@ get_header();
         <div class="mf-container">
             <header class="mf-section-header">
                 <span class="mf-section-header__kicker">Categorias</span>
-                <h2 id="collections-heading" class="mf-section-header__title">Nossas Coleções</h2>
+                <h2 id="collections-heading" class="mf-section-header__title">Nossas ColeÃ§Ãµes</h2>
                 <p class="mf-section-header__subtitle">Curadas com carinho para cada momento</p>
             </header>
             
@@ -68,26 +68,26 @@ get_header();
                 $collections = array(
                     array(
                         'title' => 'Essenciais',
-                        'subtitle' => 'Básicos premium',
-                        'image' => get_stylesheet_directory_uri() . '/assets/images/collection-essentials.jpg',
+                        'subtitle' => 'BÃ¡sicos premium',
+                                        'image' => get_stylesheet_directory_uri() . '/images/collections/collection-essentials.svg',
                         'link' => wc_get_page_permalink('shop') . '?product_cat=essenciais',
                     ),
                     array(
                         'title' => 'Vestidos',
                         'subtitle' => 'Do casual ao festa',
-                        'image' => get_stylesheet_directory_uri() . '/assets/images/collection-dresses.jpg',
+                                        'image' => get_stylesheet_directory_uri() . '/images/collections/collection-dresses.svg',
                         'link' => wc_get_page_permalink('shop') . '?product_cat=vestidos',
                     ),
                     array(
                         'title' => 'Alfaiataria',
-                        'subtitle' => 'Estrutura e elegância',
-                        'image' => get_stylesheet_directory_uri() . '/assets/images/collection-tailoring.jpg',
+                        'subtitle' => 'Estrutura e elegÃ¢ncia',
+                                        'image' => get_stylesheet_directory_uri() . '/images/collections/collection-tailoring.svg',
                         'link' => wc_get_page_permalink('shop') . '?product_cat=alfaiataria',
                     ),
                     array(
-                        'title' => 'Acessórios',
+                        'title' => 'AcessÃ³rios',
                         'subtitle' => 'O toque final',
-                        'image' => get_stylesheet_directory_uri() . '/assets/images/collection-accessories.jpg',
+                                        'image' => get_stylesheet_directory_uri() . '/images/collections/collection-accessories.svg',
                         'link' => wc_get_page_permalink('shop') . '?product_cat=acessorios',
                     ),
                 );
@@ -97,7 +97,7 @@ get_header();
                 <article class="mf-collection-card mf-animate-on-scroll mf-stagger-<?php echo $index + 1; ?>">
                     <div class="mf-collection-card__bg" style="background-image: url('<?php echo esc_url($collection['image']); ?>');" aria-hidden="true"></div>
                     <div class="mf-collection-card__overlay"></div>
-                    <a href="<?php echo esc_url($collection['link']); ?>" class="mf-collection-card__content" aria-label="Ver coleção <?php echo esc_attr($collection['title']); ?>">
+                    <a href="<?php echo esc_url($collection['link']); ?>" class="mf-collection-card__content" aria-label="Ver coleÃ§Ã£o <?php echo esc_attr($collection['title']); ?>">
                         <span class="mf-collection-card__subtitle"><?php echo esc_html($collection['subtitle']); ?></span>
                         <h3 class="mf-collection-card__title"><?php echo esc_html($collection['title']); ?></h3>
                         <span class="mf-collection-card__cta">Explorar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
@@ -114,7 +114,7 @@ get_header();
             <header class="mf-section-header mf-flex mf-flex--between">
                 <div>
                     <span class="mf-section-header__kicker">Em Destaque</span>
-                    <h2 id="featured-heading" class="mf-section-header__title">Nossas peças mais amadas</h2>
+                    <h2 id="featured-heading" class="mf-section-header__title">Nossas peÃ§as mais amadas</h2>
                 </div>
                 <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--ghost mf-section-header__action">Ver todos os produtos</a>
             </header>
@@ -130,8 +130,8 @@ get_header();
         <div class="mf-newsletter__inner">
             <div class="mf-newsletter__content">
                 <span class="mf-newsletter__kicker">Newsletter</span>
-                <h2 id="newsletter-heading" class="mf-newsletter__title">Faça parte do nosso mundo</h2>
-                <p class="mf-newsletter__text">Receba novidades, acesso antecipado a lançamentos e 10% de desconto na primeira compra.</p>
+                <h2 id="newsletter-heading" class="mf-newsletter__title">FaÃ§a parte do nosso mundo</h2>
+                <p class="mf-newsletter__text">Receba novidades, acesso antecipado a lanÃ§amentos e 10% de desconto na primeira compra.</p>
                 <div class="mf-newsletter__benefits">
                     <div class="mf-newsletter__benefit">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -152,7 +152,7 @@ get_header();
                     <input type="email" name="email" class="mf-newsletter__input" placeholder="Seu melhor e-mail" required autocomplete="email" aria-label="Seu melhor e-mail">
                     <button type="submit" class="mf-btn mf-btn--primary mf-newsletter__btn">Inscrever-se</button>
                 </div>
-                <p class="mf-newsletter__privacy">Respeitamos sua privacidade. <a href="#">Política de privacidade</a>.</p>
+                <p class="mf-newsletter__privacy">Respeitamos sua privacidade. <a href="#">PolÃ­tica de privacidade</a>.</p>
             </form>
         </div>
     </section>
@@ -161,16 +161,26 @@ get_header();
     <section class="mf-instagram" aria-labelledby="instagram-heading">
         <div class="mf-container">
             <header class="mf-section-header">
-                <span class="mf-section-header__kicker">Inspiração</span>
-                <h2 id="instagram-heading" class="mf-section-header__title">Inspiração do Dia</h2>
+                <span class="mf-section-header__kicker">InspiraÃ§Ã£o</span>
+                <h2 id="instagram-heading" class="mf-section-header__title">InspiraÃ§Ã£o do Dia</h2>
                 <p class="mf-section-header__subtitle">Siga-nos @modafeminina</p>
             </header>
             
             <div class="mf-instagram__grid" data-instagram-feed>
-                <?php for ($i = 1; $i <= 6; $i++) : ?>
-                <a href="https://instagram.com" target="_blank" rel="noopener" class="mf-instagram__item mf-animate-on-scroll mf-stagger-<?php echo $i; ?>" aria-label="Post do Instagram <?php echo $i; ?>">
-                    <div class="mf-instagram__image" style="background: var(--color-beige-200);">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-3.584-.069-4.849-.149-3.225-1.664-4.771-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.44-.645 1.44-1.44-.645-1.44-1.441-1.44z"></path></svg>
+                <?php
+                $instagram_images = array(
+                    get_stylesheet_directory_uri() . '/images/instagram/instagram-1.svg',
+                    get_stylesheet_directory_uri() . '/images/instagram/instagram-2.svg',
+                    get_stylesheet_directory_uri() . '/images/instagram/instagram-3.svg',
+                    get_stylesheet_directory_uri() . '/images/instagram/instagram-4.svg',
+                    get_stylesheet_directory_uri() . '/images/instagram/instagram-5.svg',
+                    get_stylesheet_directory_uri() . '/images/instagram/instagram-6.svg',
+                );
+                
+                foreach ($instagram_images as $index => $image) : ?>
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="mf-instagram__item mf-animate-on-scroll mf-stagger-<?php echo $index + 1; ?>" aria-label="Post do Instagram <?php echo $index + 1; ?>">
+                    <div class="mf-instagram__image">
+                        <img src="<?php echo esc_url($image); ?>" alt="" aria-hidden="true" loading="lazy">
                     </div>
                     <div class="mf-instagram__overlay">
                         <span class="mf-instagram__stats">
@@ -179,7 +189,7 @@ get_header();
                         </span>
                     </div>
                 </a>
-                <?php endfor; ?>
+                <?php endforeach; ?>
             </div>
             <div class="mf-instagram__cta">
                 <a href="https://instagram.com" target="_blank" rel="noopener" class="mf-btn mf-btn--ghost mf-btn--lg">Ver mais no Instagram</a>
@@ -191,8 +201,8 @@ get_header();
     <section class="mf-footer-cta" aria-labelledby="footer-cta-heading">
         <div class="mf-footer-cta__inner">
             <h2 id="footer-cta-heading" class="mf-footer-cta__title">Pronto para renovar seu guarda-roupa?</h2>
-            <p class="mf-footer-cta__text">Descubra peças que valorizam sua essência. Frete grátis acima de R$ 199.</p>
-            <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg">Começar a comprar</a>
+            <p class="mf-footer-cta__text">Descubra peÃ§as que valorizam sua essÃªncia. Frete grÃ¡tis acima de R$ 199.</p>
+            <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="mf-btn mf-btn--primary mf-btn--lg">ComeÃ§ar a comprar</a>
         </div>
     </section>
 

@@ -1,0 +1,55 @@
+<svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="collection-essentials-title collection-essentials-desc">
+  <title id="collection-essentials-title">Essenciais Collection Thumbnail</title>
+  <desc id="collection-essentials-desc">Circular collection thumbnail for Essenciais category - premium basics</desc>
+  <defs>
+    <linearGradient id="essentialsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0EB;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#EDE4DD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E5DCCF;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="essentialsGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#F5F0EB;stop-opacity:0" />
+    </radialGradient>
+    <pattern id="linenTexture" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M0 4 L8 4 M4 0 L4 8" stroke="#C4B8A8" stroke-width="0.3" opacity="0.15"/>
+    </pattern>
+  </defs>
+  
+  <!-- Circular clipping path -->
+  <clipPath id="circleClip">
+    <circle cx="300" cy="300" r="295"/>
+  </clipPath>
+  
+  <g clip-path="url(#circleClip)">
+    <!-- Base gradient -->
+    <circle cx="300" cy="300" r="300" fill="url(#essentialsGradient)"/>
+    
+    <!-- Texture overlay -->
+    <circle cx="300" cy="300" r="300" fill="url(#linenTexture)"/>
+    
+    <!-- Soft glow -->
+    <circle cx="300" cy="300" r="300" fill="url(#essentialsGlow)"/>
+    
+    <!-- Subtle inner ring -->
+    <circle cx="300" cy="300" r="270" fill="none" stroke="#C4B8A8" stroke-width="1" opacity="0.2"/>
+    <circle cx="300" cy="300" r="240" fill="none" stroke="#C4B8A8" stroke-width="0.5" opacity="0.1"/>
+  </g>
+  
+  <!-- Content -->
+  <g transform="translate(300, 300)">
+    <!-- Category icon - minimalist shirt/t-shirt -->
+    <g stroke="#8B7D6B" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.6">
+      <path d="M -50 -20 L -30 -20 L -30 -50 L 30 -50 L 30 -20 L 50 -20 L 50 40 L -50 40 Z"/>
+      <path d="M -20 -50 L -20 -70 M 20 -50 L 20 -70"/>
+    </g>
+    
+    <!-- Placeholder text -->
+    <text x="0" y="80" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="300" fill="#8B7D6B" letter-spacing="0.08em">ESSENCIAIS</text>
+    <text x="0" y="115" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#A89B8B" letter-spacing="0.1em">BÁSICOS PREMIUM</text>
+    <text x="0" y="150" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#C4B8A8" opacity="0.7">600 × 600 • Circular</text>
+  </g>
+  
+  <!-- Outer decorative ring -->
+  <circle cx="300" cy="300" r="298" fill="none" stroke="#C4B8A8" stroke-width="2" opacity="0.15"/>
+</svg>

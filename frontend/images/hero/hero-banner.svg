@@ -1,0 +1,67 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="hero-title hero-desc">
+  <title id="hero-title">Hero Banner Placeholder</title>
+  <desc id="hero-desc">Cinematic fashion lifestyle hero banner placeholder for Moda Feminina e-commerce</desc>
+  <!-- Premium neutral gradient background -->
+  <defs>
+    <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0EB;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#EDE4DD;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#E5DCCF;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#DDD4C7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4CABF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="heroOverlay" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0EB;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#8B7D6B;stop-opacity:0.15" />
+    </linearGradient>
+    <pattern id="subtleTexture" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.5" fill="#C4B8A8" opacity="0.15"/>
+    </pattern>
+  </defs>
+  
+  <!-- Base gradient -->
+  <rect width="1920" height="1080" fill="url(#heroGradient)"/>
+  
+  <!-- Subtle texture overlay -->
+  <rect width="1920" height="1080" fill="url(#subtleTexture)"/>
+  
+  <!-- Soft vignette -->
+  <ellipse cx="960" cy="540" rx="1200" ry="700" fill="url(#heroOverlay)"/>
+  
+  <!-- Decorative accent lines -->
+  <g stroke="#C4B8A8" stroke-width="1" opacity="0.3">
+    <line x1="200" y1="200" x2="400" y2="200"/>
+    <line x1="1520" y1="200" x2="1720" y2="200"/>
+    <line x1="200" y1="880" x2="400" y2="880"/>
+    <line x1="1520" y1="880" x2="1720" y2="880"/>
+  </g>
+  
+  <!-- Center content area indicator -->
+  <g transform="translate(960, 540)">
+    <!-- Subtle frame -->
+    <rect x="-300" y="-150" width="600" height="300" fill="none" stroke="#C4B8A8" stroke-width="1" opacity="0.4" rx="2"/>
+    <rect x="-280" y="-130" width="560" height="260" fill="none" stroke="#C4B8A8" stroke-width="0.5" opacity="0.2" rx="1"/>
+    
+    <!-- Placeholder text -->
+    <text x="0" y="-40" text-anchor="middle" font-family="Georgia, serif" font-size="32" font-weight="300" fill="#8B7D6B" letter-spacing="0.1em">HERO BANNER</text>
+    <text x="0" y="10" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#A89B8B" letter-spacing="0.05em">1920 × 1080</text>
+    <text x="0" y="50" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#C4B8A8" letter-spacing="0.15em">CINEMATIC FASHION LIFESTYLE</text>
+    
+    <!-- Decorative divider -->
+    <line x1="-80" y1="85" x2="80" y2="85" stroke="#C4B8A8" stroke-width="1" opacity="0.5"/>
+    
+    <text x="0" y="115" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#C4B8A8" opacity="0.7">Moda Feminina • Premium Placeholder</text>
+  </g>
+  
+  <!-- Corner accents -->
+  <g stroke="#C4B8A8" stroke-width="1.5" opacity="0.25">
+    <!-- Top-left -->
+    <path d="M 100 100 L 100 180 M 100 100 L 180 100"/>
+    <!-- Top-right -->
+    <path d="M 1820 100 L 1820 180 M 1820 100 L 1740 100"/>
+    <!-- Bottom-left -->
+    <path d="M 100 980 L 100 900 M 100 980 L 180 980"/>
+    <!-- Bottom-right -->
+    <path d="M 1820 980 L 1820 900 M 1820 980 L 1740 980"/>
+  </g>
+</svg>
