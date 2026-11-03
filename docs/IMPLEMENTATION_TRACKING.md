@@ -19,6 +19,7 @@
 | 7 | **Accessibility validation (axe, Lighthouse)** | ✅ Done | 7e36f32 | WCAG 2.1 AA compliance - color contrast, focus indicators, semantic HTML, ARIA, touch targets, keyboard nav |
 | 8 | **Import catalog (300+ products via CSV)** | ⏳ Pending | | Requires CSV data from client |
 | 9 | **Fix homepage mojibake (UTF-8)** | ✅ Done | 893456e | Restored accents in hero, collections, newsletter, Instagram and footer CTA |
+| 10 | **Product card second image on hover** | ✅ Done | ee3b4a5 | Gallery image, else variation image, else placeholder only while the product has no photo |
 
 ---
 
@@ -54,6 +55,7 @@
 - `3d6135d` - fix: mobile responsiveness improvements across all breakpoints
 - `7e36f32` - fix: accessibility improvements for WCAG 2.1 AA compliance
 - `893456e` - fix: restore UTF-8 Portuguese copy on the homepage
+- `ee3b4a5` - feat: swap to a second product photo on card hover
 
 ### Next Commits (Planned)
 - `feat: Catalog import structure for 300+ products`
